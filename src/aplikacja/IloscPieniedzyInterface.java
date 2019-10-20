@@ -1,0 +1,4 @@
+package aplikacja;
+
+interface IloscPieniedzyInterface {
+}
