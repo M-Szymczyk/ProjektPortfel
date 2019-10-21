@@ -5,49 +5,51 @@ import java.util.Scanner;
 
 class SilnikAplikacji {
     private static final String MENU=
-                    "\nMENU"+
+            "\nMENU"+
                     "\n1.Dodaj transakcje" +
-                    "\n2.Wczytywanie danych uzytkownika" +
-                    "\n3.Tworzenie nowego konta" +
-                    "\n4.Tworzenie nowego portfela" +
-                    "\n5.Wyswietlenie stanu konta" +
-                    "\n6.Wyswietlenie stanu portfela" +
-                    "\n7.Koniec programu" +
+                    "\n2.Tworzenie nowego konta" +
+                    "\n3.Tworzenie nowego portfela" +
+                    "\n4.Wyswietlenie stanu konta" +
+                    "\n5.Wyswietlenie stanu portfela" +
+                    "\n6.Koniec programu" +
                     "\nWybierz opcje: ";
 
     public static void main(String[] args) {
-        SilnikAplikacji silnik=new SilnikAplikacji();
+        SilnikAplikacji silnik=new SilnikAplikacji();  // w sumie "xD" - najkrotszy main jakiego widzialem :P
         silnik.praca();
     }
 
     private void praca() {
-        Scanner scan = new Scanner(System.in);
-        DaneUzytkowika uzytkownik = new DaneUzytkowika();//jezeli zakladamy istnienie wielu uzytkownikow to chyba trzeba to zmienic na arraylist
+        // tworzymy tablice-liste kont bankowych gdzie bedziemy przechowywac dane kont
         ArrayList<KontoBankowe> konta_bankowe = new ArrayList<>();
+
+        // analogicznie portfele
         ArrayList<Portfel>portfele=new ArrayList<>();
-        System.out.println("Witaj w programie \"MoneyDoctor\" !");//MoneyMeneger???
-        System.out.println("Kobieta jak kobieta, twór ma różne rządze, zerknij tutaj bo może podpierdala Ci pieniądze...");//XDDDDD
+
+        // przywitanie
+        System.out.println("Witaj w programie \"MoneyManager\" !");
+        System.out.println("Kobieta jak kobieta, twór ma różne rządze, zerknij tutaj bo może podpierdala Ci pieniądze...");
+
+        // przechodzimy do wlasciwej czesci programu
         boolean warunek_dzialania_programu=true;
+        Scanner scan = new Scanner(System.in);
         do {
             System.out.println(MENU);
-            switch (scan.nextInt()) {
+            switch (Integer.parseInt(scan.nextLine())) {
                 case 1:
                     // opcja dodawania transakcji
                 case 2:
-                    uzytkownik.wczytaj();
+                    //2.Tworzenie nowego konta"
+                    konta_bankowe.add(new KontoBankowe());
+                    konta_bankowe.get(konta_bankowe.size() - 1).wczytaj();
                     break;
                 case 3:
-                    //3.Tworzenie nowego konta"
-                    konta_bankowe.add(new KontoBankowe());
-                    konta_bankowe.get(konta_bankowe.size() - 1).wczytaj(uzytkownik);
-                    break;
-                case 4:
-                    //4.Tworzenie noewgo portfela
+                    //3.Tworzenie nowego portfela
                     portfele.add(new Portfel());
                     portfele.get(portfele.size() - 1).wczytaj();
                     break;
-                case 5:
-                    //5.Wyswietlenie stanu konta
+                case 4:
+                    //4.Wyswietlenie stanu konta
                     if (konta_bankowe.size() == 0)
                         System.out.println("Nie dodano zadnych kont!");
                     else
@@ -55,15 +57,15 @@ class SilnikAplikacji {
                             System.out.println(konto_bankowe.toString());
 
                     break;
-                case 6:
-                    //6.Wyswietlenie stanu portfela
+                case 5:
+                    //5.Wyswietlenie stanu portfela
                     if (portfele.size() == 0)
                         System.out.println("Nie dodano zadnych portfeli!");
                     else
                         for (Portfel portfel : portfele)
                             System.out.println(portfel.toString());
                     break;
-                case 7:
+                case 6:
                     warunek_dzialania_programu = false;
                     break;
             }
