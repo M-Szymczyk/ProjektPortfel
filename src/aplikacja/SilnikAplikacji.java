@@ -1,5 +1,8 @@
 package aplikacja;
 
+import aplikacja.dane.KontoBankowe;
+import aplikacja.dane.Portfel;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

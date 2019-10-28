@@ -1,4 +1,4 @@
-package aplikacja;
+package aplikacja.dane;
 
 import java.util.Scanner;
 interface PortfelInterface {
@@ -19,7 +19,7 @@ public class Portfel extends IloscPieniedzy implements PortfelInterface {
 
 
     //konstruktory
-    Portfel() {
+    public Portfel() {
         this.wlasciciel = null;
     }
 
