@@ -40,6 +40,29 @@ class SilnikAplikacji {
                 switch (Integer.parseInt(scan.nextLine())) {
                     case 1:
                         // opcja dodawania transakcji
+                        //listuje wszystkie konta i portfele
+
+                        System.out.println("Transakcja w portfelu,czy na koncie?[P/K]");
+                        if (scan.nextLine().toUpperCase().equals("K")) {
+                            if (konta_bankowe.size() == 0) {
+                                System.out.println("Nie masz zadnych kont!");
+                            } else {
+                                listowanieKont(konta_bankowe);
+                                System.out.println("W ktorym koncie dodajemy transkacje: ");
+                                konta_bankowe.get(scan.nextInt()-1).transakcja();
+                            }
+                        } else if (scan.nextLine().toUpperCase().equals("P")) {
+                            if (portfele.size() == 0) {
+                                System.out.println("Nie masz zadnych portfeli!");
+                            }else {
+                                System.out.println("Brak opcji :'(");
+                                //TODO dodac transakcje dla portfeli analogicznie jak dla kont
+                            }
+                        } else {
+                            System.out.println("Nie ma takiej opcji!");
+                        }
+                        //TODO gdzies tu zostaje enter chyba nwm gdzie
+                        break;
                     case 2:
                         //2.Tworzenie nowego konta"
                         konta_bankowe.add(new KontoBankowe());
@@ -80,6 +103,16 @@ class SilnikAplikacji {
             }
         }while (warunek_dzialania_programu);
         System.out.println("Koniec");
+    }
+    //zastanawiam sie czy dalo by sie dodac cos do tej metody zeby dzialolo dla portfeli bez dodawania osobnej metody
+    private void listowanieKont(ArrayList<KontoBankowe> konta_bankowe){
+        if (konta_bankowe.size() == 0) {
+            System.out.println("Nie masz zadnych kont!");
+        } else
+            for (int i = 0; i < konta_bankowe.size(); i++) {
+                KontoBankowe konta = konta_bankowe.get(i);
+                System.out.println(i+1 + "." + konta.getNazwa_konta());
+            }
     }
 }
 /*
