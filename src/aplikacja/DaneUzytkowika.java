@@ -6,7 +6,17 @@ import java.util.Scanner;
  * imie, nazwisko, pesel, nr dowodu osobistego, miasto zamieszkania, ulice zamieszkania, nr ulicy, nr mieszkania,
  * kod pocztowy, Poczte
  */
+interface DaneUzytkownikaInterface {
+    /**
+     * Metoda wczytaj wczytuje dane uzytkownika
+     */
+    void wczytaj();
 
+    /**
+     * Metoda to String zwraca dane uzytkownknika w formie gotowej do wyswietlenia
+     */
+    String toString();
+}
 // wyjatek na blednie wklepane dane przez uzytkownika
 class DaneUzytkownikaException extends Exception{
 

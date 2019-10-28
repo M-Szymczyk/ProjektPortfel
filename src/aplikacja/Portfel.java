@@ -1,16 +1,31 @@
 package aplikacja;
 
 import java.util.Scanner;
+interface PortfelInterface {
+    /**
+     *wczytywanie danych do portfela
+     */
+    void wczytaj();
+
+    /**
+     * odczyt danych portfela
+      */
+    String toString();
+}
 
 public class Portfel extends IloscPieniedzy implements PortfelInterface {
     private String wlasciciel; // mysle ze nie warto dla portfela tworzyc obiektu DaneUzytkownika xD
-    private String nazwa; // jeszcze nie wiem czy sie przyda xD
+    private String nazwa; // jeszcze nie wiem czy sie przyda xD//to powinno
 
 
     //konstruktory
-    Portfel() { this.wlasciciel = null; }
+    Portfel() {
+        this.wlasciciel = null;
+    }
 
-    Portfel(String wlasciciel) { this.wlasciciel = wlasciciel; }
+    Portfel(String wlasciciel) {
+        this.wlasciciel = wlasciciel;
+    }
 
     Portfel(int ilosc_zl, String wlasciciel) {
         super(ilosc_zl);
@@ -32,6 +47,7 @@ public class Portfel extends IloscPieniedzy implements PortfelInterface {
     private String getWlasciciel() {
         return wlasciciel;
     }
+
     private void setWlasciciel(String wlasciciel) {
         this.wlasciciel = wlasciciel;
     }
@@ -40,12 +56,12 @@ public class Portfel extends IloscPieniedzy implements PortfelInterface {
 
     // wczytywanie danych
     @Override
-    public void wczytaj(){
+    public void wczytaj() {
         System.out.println("Prosze podac nazwe portfela: ");
-        Scanner input=new Scanner(System.in);
-        this.nazwa=input.nextLine();
+        Scanner input = new Scanner(System.in);
+        this.nazwa = input.nextLine();
         System.out.println("Prosze podac imie/nazwisko/ksywke wlasciciela: ");
-        this.wlasciciel=input.nextLine();
+        this.wlasciciel = input.nextLine();
     }
 
 

@@ -2,6 +2,24 @@ package aplikacja;
 
 import java.util.Scanner;
 
+interface KontoBankoweInterface{
+    /**
+     * Do wczytywania pol klasy
+     */
+    void wczytaj();
+
+    /**
+     * Wykorzystuje do szybkiego listowania kont
+     * @return nazwe konta
+     */
+    String getNazwa_konta();
+
+    /**
+     * Zwraca wszystkie dane konta
+     */
+    String toString();
+}
+
 class KontoBankoweException extends Exception{
 
     KontoBankoweException(String message) {
@@ -9,12 +27,11 @@ class KontoBankoweException extends Exception{
     }
 }
 
-public class KontoBankowe extends IloscPieniedzy {
+public class KontoBankowe extends IloscPieniedzy implements KontoBankoweInterface {
     // bede tworzyc transakcje i dodawac tutaj liste transakcji. pomysle nad ich limitem
     private int nr_konta_bankowego;
     private String nazwa_konta;
     private DaneUzytkowika wlasciciel;
-
 
     // konstruktory
     public KontoBankowe() {
@@ -29,7 +46,6 @@ public class KontoBankowe extends IloscPieniedzy {
         this.nazwa_konta = nazwa_konta;
         this.wlasciciel = wlasciciel;
     }
-
 
     // wczytywanie danych konta, hajsu + opcjonalnie wlasciciela
     public void wczytaj() {
@@ -98,7 +114,7 @@ public class KontoBankowe extends IloscPieniedzy {
             this.nazwa_konta = nazwa_konta;
     }
 
-    private String getNazwa_konta() {
+    public String getNazwa_konta() {
         return nazwa_konta;
     }
 

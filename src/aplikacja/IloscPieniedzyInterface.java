@@ -1,4 +1,0 @@
-package aplikacja;
-
-interface IloscPieniedzyInterface {
-}
