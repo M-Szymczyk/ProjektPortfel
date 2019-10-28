@@ -15,8 +15,9 @@ class SilnikAplikacji {
                     "\nWybierz opcje: ";
 
     public static void main(String[] args) {
-        SilnikAplikacji silnik=new SilnikAplikacji();  // w sumie "xD" - najkrotszy main jakiego widzialem :P
-        silnik.praca();
+        //SilnikAplikacji silnik=new SilnikAplikacji();  // w sumie "xD" - najkrotszy main jakiego widzialem :P
+        //silnik.praca();
+        new SilnikAplikacji().praca();//Prosze jeszcze krótszy main XD
     }
 
     private void praca() {
@@ -35,39 +36,47 @@ class SilnikAplikacji {
         Scanner scan = new Scanner(System.in);
         do {
             System.out.println(MENU);
-            switch (Integer.parseInt(scan.nextLine())) {
-                case 1:
-                    // opcja dodawania transakcji
-                case 2:
-                    //2.Tworzenie nowego konta"
-                    konta_bankowe.add(new KontoBankowe());
-                    konta_bankowe.get(konta_bankowe.size() - 1).wczytaj();
-                    break;
-                case 3:
-                    //3.Tworzenie nowego portfela
-                    portfele.add(new Portfel());
-                    portfele.get(portfele.size() - 1).wczytaj();
-                    break;
-                case 4:
-                    //4.Wyswietlenie stanu konta
-                    if (konta_bankowe.size() == 0)
-                        System.out.println("Nie dodano zadnych kont!");
-                    else
-                        for (KontoBankowe konto_bankowe : konta_bankowe)
-                            System.out.println(konto_bankowe.toString());
+            try {
+                switch (Integer.parseInt(scan.nextLine())) {
+                    case 1:
+                        // opcja dodawania transakcji
+                    case 2:
+                        //2.Tworzenie nowego konta"
+                        konta_bankowe.add(new KontoBankowe());
+                        konta_bankowe.get(konta_bankowe.size() - 1).wczytaj();
+                        break;
+                    case 3:
+                        //3.Tworzenie nowego portfela
+                        portfele.add(new Portfel());
+                        portfele.get(portfele.size() - 1).wczytaj();
+                        break;
+                    case 4:
+                        //4.Wyswietlenie stanu konta
+                        if (konta_bankowe.size() == 0)
+                            System.out.println("Nie dodano zadnych kont!");
+                        else
+                            for (KontoBankowe konto_bankowe : konta_bankowe)
+                                System.out.println(konto_bankowe.toString());
 
-                    break;
-                case 5:
-                    //5.Wyswietlenie stanu portfela
-                    if (portfele.size() == 0)
-                        System.out.println("Nie dodano zadnych portfeli!");
-                    else
-                        for (Portfel portfel : portfele)
-                            System.out.println(portfel.toString());
-                    break;
-                case 6:
-                    warunek_dzialania_programu = false;
-                    break;
+                        break;
+                    case 5:
+                        //5.Wyswietlenie stanu portfela
+                        if (portfele.size() == 0)
+                            System.out.println("Nie dodano zadnych portfeli!");
+                        else
+                            for (Portfel portfel : portfele)
+                                System.out.println(portfel.toString());
+                        break;
+                    case 6:
+                        warunek_dzialania_programu = false;
+                        break;
+                    default:
+                        System.out.println("Nie ma takiej opcji");
+                        break;
+                }
+            }catch (NumberFormatException e){
+                System.out.println("Musisz podac cyfre!!!\n Wcisnij ENTER");
+                scan.nextLine();
             }
         }while (warunek_dzialania_programu);
         System.out.println("Koniec");
