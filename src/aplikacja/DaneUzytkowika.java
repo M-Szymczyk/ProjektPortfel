@@ -33,167 +33,153 @@ public class DaneUzytkowika implements DaneUzytkownikaInterface {
     private String getName() {
         return name;
     }
+
     private void setName(String name) throws DaneUzytkownikaException {
         if (name == null || name.equals("")) {
             throw new DaneUzytkownikaException("Musisz podac imie!");
         } else
             this.name = name;
     }
-    // ==============================================
-
-
     // ================ NAZWISKO ====================
     private String getSurname() {
         return surname;
     }
+
     private void setSurname(String surname) throws DaneUzytkownikaException {
         if (surname == null || surname.equals(""))
             throw new DaneUzytkownikaException("Musisz podac nazwisko!");
         else
             this.surname = surname;
     }
-    // ==============================================
-
-
     // ================== PESEL =====================
     private String getPesel() {
         return pesel;
     }
+
     private void setPesel(String pesel) throws DaneUzytkownikaException {
         if (pesel == null || pesel.equals(""))
             throw new DaneUzytkownikaException("Musisz podac PESEL!");
         else
             this.pesel = pesel;
     }
-    // ==============================================
-
-
-    // ================ NR DOWODU ===================
+   // ================ NR DOWODU ===================
     private String getId_no() {
         return id_no;
     }
+
     private void setId_no(String id_no) throws DaneUzytkownikaException {
         if (id_no == null || id_no.equals(""))
             throw new DaneUzytkownikaException("Musisz podac numer dowodu!");
         else
             this.id_no = id_no;
     }
-    // ==============================================
-
-
     // ================== MIASTO ====================
     private String getResidential_city() {
         return residential_city;
     }
+
     private void setResidential_city(String residential_city) throws DaneUzytkownikaException {
         if (residential_city == null || residential_city.equals(""))
             throw new DaneUzytkownikaException("Musisz podac miasto zamieszkania!");
         else
             this.residential_city = residential_city;
     }
-    // ==============================================
-
 
     // ================== ULICA =====================
     private String getResidentail_street() {
         return residentail_street;
     }
+
     private void setResidentail_street(String residentail_street) throws DaneUzytkownikaException {
         if (residentail_street == null || residentail_street.equals(""))
             throw new DaneUzytkownikaException("Musisz podac ulice zamieszkania!");
         else
             this.residentail_street = residentail_street;
     }
-    // ==============================================
-
 
     //================== NR DOMU ====================
     private int getHouse_no() {
         return house_no;
     }
-    private void setHouse_no(int house_no) {
-        this.house_no = house_no;
+
+    private void setHouse_no(int house_no)throws DaneUzytkownikaException {
+        if (house_no <= 0)
+            throw new DaneUzytkownikaException("Nr domu nie moze byc mniejszy niz zero!");
+        else
+            this.house_no = house_no;
     }
+
     private void setHouse_no(String house_no) throws DaneUzytkownikaException {
         if (house_no == null || house_no.equals(""))
             throw new DaneUzytkownikaException("Musisz podac nr domu!");
         else {
             try {
-                int zmienna = Integer.parseInt(house_no);
-                if (zmienna <= 0)
-                    throw new DaneUzytkownikaException("Nr domu nie moze byc mniejszy niz zero!");
-                else
-                    setHouse_no(zmienna);
+                setHouse_no(Integer.parseInt(house_no));
             } catch (NumberFormatException e) {
                 throw new DaneUzytkownikaException("Numer domu musi byc liczba!");
             }
         }
     }
-    // ==============================================
-
 
     // ============== NR MIESZKANIA =================
     private int getFlat_no() {
         return flat_no;
     }
-    private void setFlat_no(int flat_no) {
-        this.flat_no = flat_no;
+
+    private void setFlat_no(int flat_no)throws DaneUzytkownikaException {
+        if (flat_no <= 0)
+            throw new DaneUzytkownikaException("Nr mieszkania musi byc wiekszy niz zero!");
+        else
+            this.flat_no = flat_no;
     }
+
     private void setFlat_no(String flat_no) throws DaneUzytkownikaException {
         if (flat_no == null || flat_no.equals(""))
             throw new DaneUzytkownikaException("Musisz podac nr mieszkania!");
         else {
             try {
-                int zmienna = Integer.parseInt(flat_no);
-                if (zmienna <= 0)
-                    throw new DaneUzytkownikaException("Nr mieszkania musi byc wiekszy niz zero!");
-                else
-                    setFlat_no(zmienna);
+                setFlat_no(Integer.parseInt(flat_no));
             } catch (NumberFormatException e) {
                 throw new DaneUzytkownikaException("Nr mieszkania musi byc liczba!");
             }
         }
     }
-    // ==============================================
-
 
     // =============== KOD POCZTOWY==================
     private int getPostcode() {
         return postcode;
     }
-    private void setPostcode(int postcode) {
-        this.postcode = postcode;
+
+    private void setPostcode(int postcode) throws DaneUzytkownikaException{
+        if (postcode <= 0)
+            throw new DaneUzytkownikaException("Kod pocztowy musi byc wiekszy niz zero!");
+        else
+            this.postcode = postcode;
     }
+
     private void setPostcode(String postcode) throws DaneUzytkownikaException {
         if (postcode == null || postcode.equals(""))
             throw new DaneUzytkownikaException("Musisz podac kod pocztowy!");
         else {
             try {
-                int zmienna = Integer.parseInt(postcode);
-                if (zmienna <= 0)
-                    throw new DaneUzytkownikaException("Kod pocztowy musi byc wiekszy niz zero!");
-                else
-                    setPostcode(zmienna);
+                setPostcode(Integer.parseInt(postcode));
             } catch (NumberFormatException e) {
                 throw new DaneUzytkownikaException("Kod pocztowy musi byc liczba!");
             }
         }
     }
-    // ==============================================
-
 
     // =================== POCZTA ===================
     private String getPost() {
         return post;
     }
+
     private void setPost(String post) throws DaneUzytkownikaException {
         if (post == null || post.equals(""))
             throw new DaneUzytkownikaException("Musisz podac poczte!");
         else
             this.post = post;
     }
-    // ==============================================
-
 
     // konstruktor na nulle i zera
     public DaneUzytkowika() {
@@ -344,4 +330,3 @@ public class DaneUzytkowika implements DaneUzytkownikaInterface {
                 "\n10.Poczta: " + getPost();
     }
 }
-
