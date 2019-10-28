@@ -1,7 +1,7 @@
 
-import aplikacja.DaneUzytkowika;
+import aplikacja.dane.DaneUzytkowika;
 import org.junit.Test;
-import aplikacja.KontoBankowe;
+import aplikacja.dane.KontoBankowe;
 public class KontoBankoweTest {
     @Test
     public void wczytajTest(){
