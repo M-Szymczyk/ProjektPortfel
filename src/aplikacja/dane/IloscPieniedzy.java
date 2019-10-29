@@ -49,14 +49,28 @@ public abstract class IloscPieniedzy implements IloscPieniedzyInterface {
                                     war_poprawnosci = false;
                                 }
                             } catch (NumberFormatException e) {
-                                System.out.println();
+                                System.out.println("Musisz podac liczbe!");
                                 war_poprawnosci = true;
                             }
                         } while (war_poprawnosci);
                         break;
                     case 2:
-                        System.out.println("Brak takiej opcji :'(");
-                        //TODO dodac opcje analogiczna jak dla wplacania
+                        do {
+                            System.out.println("Ile gotowki wyplacono?");
+                            try {
+                                int zmienna = Integer.parseInt(scan.nextLine());
+                                if (zmienna <= 0) {
+                                    System.out.println("Nie mozna wyplacic mniej niz zero gotowki!");
+                                    war_poprawnosci = true;
+                                } else {
+                                    setIlosc_zl(getIlosc_zl() + zmienna);
+                                    war_poprawnosci = false;
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println("Musisz podac liczbe!");
+                                war_poprawnosci = true;
+                            }
+                        } while (war_poprawnosci);
                         break;
                     default:
                         System.out.println("Brak takiej opcji!");

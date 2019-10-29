@@ -1,3 +1,5 @@
+package DaneTest;
+
 import aplikacja.dane.DaneUzytkowika;
 import org.junit.Test;
 import org.junit.Assert;
