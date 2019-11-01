@@ -1,11 +1,7 @@
 package aplikacja.dane;
 
 import java.util.Scanner;
-/**
- *Klasa DaneUzytkownika przechowuje dane uzytkownika tj.
- * imie, nazwisko, pesel, nr dowodu osobistego, miasto zamieszkania, ulice zamieszkania, nr ulicy, nr mieszkania,
- * kod pocztowy, Poczte
- */
+
 interface DaneUzytkownikaInterface {
     /**
      * Metoda wczytaj wczytuje dane uzytkownika
@@ -26,8 +22,12 @@ class DaneUzytkownikaException extends Exception{
         super(message);
     }
 }
-
-public class DaneUzytkowika implements DaneUzytkownikaInterface {
+/**
+ *Klasa DaneUzytkownika przechowuje dane uzytkownika tj.
+ * imie, nazwisko, pesel, nr dowodu osobistego, miasto zamieszkania, ulice zamieszkania, nr ulicy, nr mieszkania,
+ * kod pocztowy, Poczte
+ */
+public class DaneUzytkowika implements DaneUzytkownikaInterface,WczytywanieDanychInterface {
     private String name;
     private String surname;
     private String pesel;
@@ -123,11 +123,7 @@ public class DaneUzytkowika implements DaneUzytkownikaInterface {
         if (house_no == null || house_no.equals(""))
             throw new DaneUzytkownikaException("Musisz podac nr domu!");
         else {
-            try {
-                setHouse_no(Integer.parseInt(house_no));
-            } catch (NumberFormatException e) {
-                throw new DaneUzytkownikaException("Numer domu musi byc liczba!");
-            }
+            setHouse_no(WczytywanieDanychInterface.enterInt());
         }
     }
 
@@ -147,11 +143,7 @@ public class DaneUzytkowika implements DaneUzytkownikaInterface {
         if (flat_no == null || flat_no.equals(""))
             throw new DaneUzytkownikaException("Musisz podac nr mieszkania!");
         else {
-            try {
-                setFlat_no(Integer.parseInt(flat_no));
-            } catch (NumberFormatException e) {
-                throw new DaneUzytkownikaException("Nr mieszkania musi byc liczba!");
-            }
+                setFlat_no(WczytywanieDanychInterface.enterInt());
         }
     }
 
@@ -171,11 +163,7 @@ public class DaneUzytkowika implements DaneUzytkownikaInterface {
         if (postcode == null || postcode.equals(""))
             throw new DaneUzytkownikaException("Musisz podac kod pocztowy!");
         else {
-            try {
-                setPostcode(Integer.parseInt(postcode));
-            } catch (NumberFormatException e) {
-                throw new DaneUzytkownikaException("Kod pocztowy musi byc liczba!");
-            }
+                setPostcode(WczytywanieDanychInterface.enterInt());
         }
     }
 
