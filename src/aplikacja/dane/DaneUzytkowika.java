@@ -119,14 +119,6 @@ public class DaneUzytkowika implements DaneUzytkownikaInterface,WczytywanieDanyc
             this.house_no = house_no;
     }
 
-    private void setHouse_no(String house_no) throws DaneUzytkownikaException {
-        if (house_no == null || house_no.equals(""))
-            throw new DaneUzytkownikaException("Musisz podac nr domu!");
-        else {
-            setHouse_no(WczytywanieDanychInterface.enterInt());
-        }
-    }
-
     // ============== NR MIESZKANIA =================
     private int getFlat_no() {
         return flat_no;
@@ -139,14 +131,6 @@ public class DaneUzytkowika implements DaneUzytkownikaInterface,WczytywanieDanyc
             this.flat_no = flat_no;
     }
 
-    private void setFlat_no(String flat_no) throws DaneUzytkownikaException {
-        if (flat_no == null || flat_no.equals(""))
-            throw new DaneUzytkownikaException("Musisz podac nr mieszkania!");
-        else {
-                setFlat_no(WczytywanieDanychInterface.enterInt());
-        }
-    }
-
     // =============== KOD POCZTOWY==================
     private int getPostcode() {
         return postcode;
@@ -157,14 +141,6 @@ public class DaneUzytkowika implements DaneUzytkownikaInterface,WczytywanieDanyc
             throw new DaneUzytkownikaException("Kod pocztowy musi byc wiekszy niz zero!");
         else
             this.postcode = postcode;
-    }
-
-    private void setPostcode(String postcode) throws DaneUzytkownikaException {
-        if (postcode == null || postcode.equals(""))
-            throw new DaneUzytkownikaException("Musisz podac kod pocztowy!");
-        else {
-                setPostcode(WczytywanieDanychInterface.enterInt());
-        }
     }
 
     // =================== POCZTA ===================
@@ -274,7 +250,7 @@ public class DaneUzytkowika implements DaneUzytkownikaInterface,WczytywanieDanyc
         do {
             try {
                 System.out.println("Podaj nr domu:");
-                setHouse_no(scanner.nextLine());
+                setHouse_no(WczytywanieDanychInterface.enterInt());
                 war_poprawnosci = false;
             } catch (DaneUzytkownikaException e) {
                 System.out.println(e.getMessage());
@@ -284,7 +260,7 @@ public class DaneUzytkowika implements DaneUzytkownikaInterface,WczytywanieDanyc
         do {
             try {
                 System.out.println("Podaj nr_mieszkania: ");
-                setFlat_no(scanner.nextLine());
+                setFlat_no(WczytywanieDanychInterface.enterInt());
                 war_poprawnosci = false;
             } catch (DaneUzytkownikaException e) {
                 System.out.println(e.getMessage());
@@ -294,7 +270,7 @@ public class DaneUzytkowika implements DaneUzytkownikaInterface,WczytywanieDanyc
         do {
             try {
                 System.out.println("Podaj kod pocztowy: ");
-                setPostcode(scanner.nextLine());
+                setPostcode(WczytywanieDanychInterface.enterInt());
                 war_poprawnosci = false;
             } catch (DaneUzytkownikaException e) {
                 System.out.println(e.getMessage());
