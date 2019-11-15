@@ -2,11 +2,11 @@ package aplikacja.dane;
 
 import java.util.Scanner;
 
-interface KontoBankoweInterface {
+interface BankAccountInterface {
     /**
      * Do wczytywania pol klasy
      */
-    void wczytaj();
+    void load();
 
     /**
      * Zwraca wszystkie dane konta
@@ -14,60 +14,60 @@ interface KontoBankoweInterface {
     String toString();
 }
 
-class KontoBankoweException extends Exception{
+class BankAccountException extends Exception{
 
-    KontoBankoweException(String message) {
+    BankAccountException(String message) {
         super(message);
     }
 }
 
-public class KontoBankowe extends AmountOfMoney implements KontoBankoweInterface {
+public class BankAccount extends IloscPieniedzy implements BankAccountInterface {
     // bede tworzyc transakcje i dodawac tutaj liste transakcji. pomysle nad ich limitem
-    private int nr_konta_bankowego;
-    private DaneUzytkowika wlasciciel;
+    private int numberBankAccount;
+    private UserData wlasciciel;
 
     // ==================== NR_KONTA ================================
 
-    private void setNr_konta_bankowego(int nr_konta_bankowego) throws KontoBankoweException {
-        if (nr_konta_bankowego < 0) {
-            throw new KontoBankoweException("Numer konta bankowego nie moze byc mniejszy niz zero!");
+    private void setNumberBankAccount(int numberBankAccount) throws BankAccountException {
+        if (numberBankAccount < 0) {
+            throw new BankAccountException("Numer konta bankowego nie moze byc mniejszy niz zero!");
         } else
-            this.nr_konta_bankowego = nr_konta_bankowego;
+            this.numberBankAccount = numberBankAccount;
     }
 
-    private int getNr_konta_bankowego() {
-        return nr_konta_bankowego;
+    private int getNumberBankAccount() {
+        return numberBankAccount;
     }
 
     //===================== Wlasciciel ============================
-    private DaneUzytkowika getWlasciciel() {
+    private UserData getWlasciciel() {
         return this.wlasciciel;
     }
 
     // konstruktory
-    public KontoBankowe() {
-        this.nr_konta_bankowego = 0;
+    public BankAccount() {
+        this.numberBankAccount = 0;
         this.wlasciciel = null;
     }
 
-    public KontoBankowe(int ilosc_zl, int ilosc_gr, String nazwa, int nr_konta_bankowego, DaneUzytkowika wlasciciel) {
+    public BankAccount(int ilosc_zl, int ilosc_gr, String nazwa, int numberBankAccount, UserData wlasciciel) {
         super(ilosc_zl, ilosc_gr,nazwa);
-        this.nr_konta_bankowego = nr_konta_bankowego;
+        this.numberBankAccount = numberBankAccount;
         this.wlasciciel = wlasciciel;
     }
 
     // wczytywanie danych konta, hajsu + opcjonalnie wlasciciela
     @Override
-    public void wczytaj() {
-        super.wczytaj();//wywoluje metode enterData klasy AmountOfMoney
+    public void load() {
+        super.wczytaj();//wywoluje metode wczytaj klasy IloscPieniedzy
         Scanner scanner = new Scanner(System.in);
         boolean war_poprawnosci;
         do {
             try {
                 System.out.println("Podaj nr_konta: ");
-                setNr_konta_bankowego(WczytywanieDanychInterface.enterInt());
+                setNumberBankAccount(WczytywanieDanychInterface.enterInt());
                 war_poprawnosci = false;
-            } catch (KontoBankoweException e) {
+            } catch (BankAccountException e) {
                 System.out.println(e.getMessage());
                 war_poprawnosci = true;
             }
@@ -77,7 +77,7 @@ public class KontoBankowe extends AmountOfMoney implements KontoBankoweInterface
         // w tworzenie uzytkownikow i ich list ...
         System.out.println("Czy chcesz dodac dane wlasciciela tego konta? (T/N): ");
         if (scanner.nextLine().toUpperCase().equals("T")) {
-            wlasciciel = new DaneUzytkowika();
+            wlasciciel = new UserData();
             wlasciciel.wczytaj();
         } else System.out.println("Podpowiedz: Dane mozesz wpisac w kazdej chwili wybierajac opcje w menu startowym.");
         //FIXME nie przechytujemy wszystkich odp uzytkownika
@@ -85,7 +85,7 @@ public class KontoBankowe extends AmountOfMoney implements KontoBankoweInterface
 
     @Override
     public String toString() {
-        return "Stan " + getNazwa() + "o numerze" + getNr_konta_bankowego() + "ktorego wlascicielam jest: " +
+        return "Stan " + getNazwa() + "o numerze" + getNumberBankAccount() + "ktorego wlascicielam jest: " +
                 getWlasciciel() + "\nwynosi: " + super.toString();
     }
 }
