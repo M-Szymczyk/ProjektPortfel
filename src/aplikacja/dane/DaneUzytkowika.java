@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 interface DaneUzytkownikaInterface {
     /**
-     * Metoda wczytaj wczytuje dane uzytkownika
+     * Metoda enterData wczytuje dane uzytkownika
      */
     void wczytaj();
 

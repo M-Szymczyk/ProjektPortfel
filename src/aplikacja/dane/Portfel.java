@@ -1,6 +1,5 @@
 package aplikacja.dane;
 
-import java.util.Scanner;
 interface PortfelInterface {
     /**
      * prawdo podobnie bd wyorzystane do
@@ -14,7 +13,7 @@ interface PortfelInterface {
     String toString();
 }
 
-public class Portfel extends IloscPieniedzy implements PortfelInterface {
+public class Portfel extends AmountOfMoney implements PortfelInterface {
 
     //=========================konstruktory=========================
     public Portfel() {

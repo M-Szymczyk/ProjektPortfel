@@ -14,7 +14,7 @@ public class DaneUzytkownikaTest {
     }
     @Test
     public void Test_Wczytaj() {
-        //uzytkowik1.wczytaj();
+        //uzytkowik1.enterData();
         Assert.assertEquals(uzytkowik1,uzytkownik2);
     }
 

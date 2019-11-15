@@ -24,10 +24,10 @@ public class SilnikAplikacji implements WczytywanieDanychInterface {
 
     private void praca() {
         // tworzymy tablice-liste kont bankowych gdzie bedziemy przechowywac dane kont
-        ArrayList<IloscPieniedzy> konta_bankowe = new ArrayList<>();
+        ArrayList<AmountOfMoney> konta_bankowe = new ArrayList<>();
 
         // analogicznie portfele
-        ArrayList<IloscPieniedzy> portfele = new ArrayList<>();
+        ArrayList<AmountOfMoney> portfele = new ArrayList<>();
 
         // przywitanie
         System.out.println("Witaj w programie \"MoneyManager\" !");
@@ -50,7 +50,7 @@ public class SilnikAplikacji implements WczytywanieDanychInterface {
                         } else {
                             listowanie(konta_bankowe);
                             System.out.println("W ktorym koncie dodajemy transkacje: ");
-                            konta_bankowe.get(WczytywanieDanychInterface.enterInt() - 1).transakcja();
+                            konta_bankowe.get(WczytywanieDanychInterface.enterInt() - 1).transaction();
                         }
                     } else if (odp_uzytkownika.equals("P")) {
                         if (portfele.size() == 0) {
@@ -58,7 +58,7 @@ public class SilnikAplikacji implements WczytywanieDanychInterface {
                         } else {
                             listowanie(portfele);
                             System.out.println("W ktorym portfelu dodajemy transkacje: ");
-                            portfele.get(WczytywanieDanychInterface.enterInt() - 1).transakcja();
+                            portfele.get(WczytywanieDanychInterface.enterInt() - 1).transaction();
                         }
                     } else {
                         System.out.println("Nie ma takiej opcji!");
@@ -111,12 +111,12 @@ public class SilnikAplikacji implements WczytywanieDanychInterface {
      *
      * @param obj listowana arraylista
      */
-    private void listowanie(ArrayList<IloscPieniedzy> obj) {
+    private void listowanie(ArrayList<AmountOfMoney> obj) {
         if (obj.size() == 0) {
             System.out.println("Nie masz zadnych kont!");
         } else
             for (int i = 0; i < obj.size(); i++) {
-                IloscPieniedzy konta = obj.get(i);
+                AmountOfMoney konta = obj.get(i);
                 System.out.println(i + 1 + "." + konta.getNazwa());
             }
     }

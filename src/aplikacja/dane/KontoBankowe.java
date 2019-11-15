@@ -21,7 +21,7 @@ class KontoBankoweException extends Exception{
     }
 }
 
-public class KontoBankowe extends IloscPieniedzy implements KontoBankoweInterface {
+public class KontoBankowe extends AmountOfMoney implements KontoBankoweInterface {
     // bede tworzyc transakcje i dodawac tutaj liste transakcji. pomysle nad ich limitem
     private int nr_konta_bankowego;
     private DaneUzytkowika wlasciciel;
@@ -59,7 +59,7 @@ public class KontoBankowe extends IloscPieniedzy implements KontoBankoweInterfac
     // wczytywanie danych konta, hajsu + opcjonalnie wlasciciela
     @Override
     public void wczytaj() {
-        super.wczytaj();//wywoluje metode wczytaj klasy IloscPieniedzy
+        super.wczytaj();//wywoluje metode enterData klasy AmountOfMoney
         Scanner scanner = new Scanner(System.in);
         boolean war_poprawnosci;
         do {
