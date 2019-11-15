@@ -67,7 +67,7 @@ public class SilnikAplikacji implements WczytywanieDanychInterface {
                     break;
                 case 2:
                     //2.Tworzenie nowego konta"
-                    konta_bankowe.add(new KontoBankowe());
+                    konta_bankowe.add(new BankAccount());
                     konta_bankowe.get(konta_bankowe.size() - 1).wczytaj();//to dziala dziwnie xd
                     break;
                 case 3:
