@@ -1,11 +1,11 @@
-package aplikacja;
+package application;
 
-import aplikacja.dane.*;
+import application.data.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class SilnikAplikacji implements WczytywanieDanychInterface {
+public class Engine implements EnterDataInterface {
     private static final String MENU =
             "\nMENU" +
                     "\n1.Dodaj transakcje" +
@@ -17,115 +17,117 @@ public class SilnikAplikacji implements WczytywanieDanychInterface {
                     "\nWybierz opcje: ";
 
     public static void main(String[] args) {
-        //SilnikAplikacji silnik=new SilnikAplikacji();  // w sumie "xD" - najkrotszy main jakiego widzialem :P
-        //silnik.praca();
-        new SilnikAplikacji().praca();//Prosze jeszcze krótszy main XD
+        new Engine().work();
     }
 
-    private void praca() {
-        // tworzymy tablice-liste kont bankowych gdzie bedziemy przechowywac dane kont
-        ArrayList<AmountOfMoney> konta_bankowe = new ArrayList<>();
+    private void work() {
+        ArrayList<AmountOfMoney> bankAccounts = new ArrayList<>();
+        ArrayList<AmountOfMoney> wallets = new ArrayList<>();
 
-        // analogicznie portfele
-        ArrayList<AmountOfMoney> portfele = new ArrayList<>();
+        /** =================== PRZYWITANIE ======================== */
 
-        // przywitanie
         System.out.println("Witaj w programie \"MoneyManager\" !");
         System.out.println("Kobieta jak kobieta, twór ma różne rządze, zerknij tutaj bo może podpierdala Ci pieniądze...");
 
-        // przechodzimy do wlasciwej czesci programu
-        boolean warunek_dzialania_programu = true;
+        /** ===================== PROGRAM ========================== */
+
+        boolean toContinue = true;
         Scanner scan = new Scanner(System.in);
         do {
             System.out.println(MENU);
-            switch (WczytywanieDanychInterface.enterInt()) {
+            switch (EnterDataInterface.enterInt()) {
                 case 1:
-                    // opcja dodawania transakcji
-                    //listuje wszystkie konta i portfele
+                    /** ------------------ Dodawanie transakcji ------------------ */
+
                     System.out.println("Transakcja w portfelu,czy na koncie?[P/K]");
-                    String odp_uzytkownika=scan.nextLine().toUpperCase();
-                    if (odp_uzytkownika.equals("K")) {
-                        if (konta_bankowe.size() == 0) {
+                    String userAnswer=scan.nextLine().toUpperCase();
+                    if (userAnswer.equals("K")) {
+                        if (bankAccounts.size() == 0) {
                             System.out.println("Nie masz zadnych kont!");
                         } else {
-                            listowanie(konta_bankowe);
+                            list(bankAccounts);
                             System.out.println("W ktorym koncie dodajemy transkacje: ");
-                            konta_bankowe.get(WczytywanieDanychInterface.enterInt() - 1).transaction();
+                            bankAccounts.get(EnterDataInterface.enterInt() - 1).transaction();
                         }
-                    } else if (odp_uzytkownika.equals("P")) {
-                        if (portfele.size() == 0) {
+                    } else if (userAnswer.equals("P")) {
+                        if (wallets.size() == 0) {
                             System.out.println("Nie masz zadnych portfeli!");
                         } else {
-                            listowanie(portfele);
+                            list(wallets);
                             System.out.println("W ktorym portfelu dodajemy transkacje: ");
-                            portfele.get(WczytywanieDanychInterface.enterInt() - 1).transaction();
+                            wallets.get(EnterDataInterface.enterInt() - 1).transaction();
                         }
                     } else {
                         System.out.println("Nie ma takiej opcji!");
                     }
-                    //TODO trzeba przetestowac
+
                     break;
                 case 2:
-                    //2.Tworzenie nowego konta"
-                    konta_bankowe.add(new BankAccount());
-                    konta_bankowe.get(konta_bankowe.size() - 1).wczytaj();//to dziala dziwnie xd
-                    break;
+                    /** ------------------ Tworzenie nowego konta ------------------ */
+
+                    BankAccount creatingBankAccount=new BankAccount(); // tworze nowe konto
+                    creatingBankAccount.enterDataBankAccount();        // wczytuje je
+                    bankAccounts.add(creatingBankAccount);             // no i wrzucam do arraylist
+                    break;                                             // mozna dac w dwie linijki ale tak jest czytelniej
                 case 3:
-                    //3.Tworzenie nowego portfela
-                    portfele.add(new Portfel());
-                    portfele.get(portfele.size() - 1).wczytaj();// i to tez
-                    break;
+                    /** ---------------- Tworzenie nowego portfela ----------------- */
+
+                    Wallet creatingWalet=new Wallet();                 // tworze nowy portfel
+                    creatingWalet.enterDataWallet();                   // wczytuje go
+                    wallets.add(creatingWalet);                        // no i wrzucam do arraylist
+                    break;                                             // analogicznie mozna dac w dwie linijki ale po co
                 case 4:
-                    //4.Wyswietlenie stanu konta
-                    if (konta_bankowe.size() == 0)
+                    /** ----------------- Wyświetlenie stanu konta ----------------- */
+
+                    if (bankAccounts.size() == 0)
                         System.out.println("Nie dodano zadnych kont!");
                     else {
-                        listowanie(konta_bankowe);
+                        list(bankAccounts);
                         System.out.println("Ktore konto wyswietlic: ");
-                        System.out.println(konta_bankowe.get(WczytywanieDanychInterface.enterInt() - 1).toString());
+                        System.out.println(bankAccounts.get(EnterDataInterface.enterInt() - 1).toString());
                     }
                     break;
                 case 5:
-                    //5.Wyswietlenie stanu portfela
-                    if (portfele.size() == 0)
+                    /** --------------- Wyświetlenie stanu portfela ---------------- */
+
+                    if (wallets.size() == 0)
                         System.out.println("Nie dodano zadnych portfeli!");
                     else {
-                        listowanie(portfele);
+                        list(wallets);
                         System.out.println("Ktore konto wyswietlic: ");
-                        System.out.println(portfele.get(WczytywanieDanychInterface.enterInt() - 1).toString());
+                        System.out.println(wallets.get(EnterDataInterface.enterInt() - 1).toString());
                     }
                     break;
                 case 6:
-                    warunek_dzialania_programu = false;
+                    /** -------------- Zakończenie działania programu -------------- */
+
+                    toContinue = false;
                     break;
                 default:
                     System.out.println("Nie ma takiej opcji");
                     break;
             }
-        } while (warunek_dzialania_programu);
+        } while (toContinue);
         System.out.println("Koniec");
     }
 
     /**
-     * metoda listowanie listuje elementy arraylisty
+     * metoda list listuje elementy arraylisty
      *
      * @param obj listowana arraylista
      */
-    private void listowanie(ArrayList<AmountOfMoney> obj) {
+
+    private void list(ArrayList<AmountOfMoney> obj) {
         if (obj.size() == 0) {
             System.out.println("Nie masz zadnych kont!");
         } else
             for (int i = 0; i < obj.size(); i++) {
-                AmountOfMoney konta = obj.get(i);
-                System.out.println(i + 1 + "." + konta.getNazwa());
+                AmountOfMoney accounts = obj.get(i);
+                System.out.println(i + 1 + "." + accounts.getName());
             }
     }
 }
-/*
-wlaczasz apke i na start:
-pytanie - czy chcesz dodac transakcje? (tak, nie)
-tak - przechodzisz do dodawania transakcji, nie - przechodzisz do glownego menu na ktorym wyswietla
-stan najwazniejszego konta (np portfela) lub po prostu liste kont
+/**
 
 przydalby sie jakis alarm od słabego stanu konta, tzn np w ciągu tygodnia załóżmy twój stan konta 'x' spadł o 90%
 i wtedy jakies powiadomienie ze niski stan konta 'x'
@@ -139,7 +141,9 @@ wydales dzis: 50 zł, otrzymales dzis: 150zł. i tak za kazdym razem jak wylacza
 
 jak konczy sie dzien to jezeli nie bylo zadnej transakcji to przypomnienie o tym ze nie wykonales zadnej transakcji
 
-wiecej nie potrafie sobie przypomniec, to juz na biezaco. to sa takie rzeczy dodatkowe w sumie bo po za tym to trzeba
-sama apke zrobic, te konta, transakcje, bilanse itp a ja tego jeszcze nie potrafie xD
+ testy - zajme sie tym
+
+ numery kont bankowych powinny byc unikalne - zajme sie tym
+ 
 */
 

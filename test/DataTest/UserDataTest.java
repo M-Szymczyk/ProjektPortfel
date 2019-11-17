@@ -1,25 +1,25 @@
-package DaneTest;
+package DataTest;
 
-import aplikacja.dane.DaneUzytkowika;
+import application.data.UserData;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
 
-public class DaneUzytkownikaTest {
-    private DaneUzytkowika uzytkowik1,uzytkownik2;
+public class UserDataTest {
+    private UserData user1,user2;
    @Before
     public void setUp() {
-       uzytkowik1 = new DaneUzytkowika();
-       uzytkownik2 = new DaneUzytkowika("imie", "nazwisko", "99042501019", "mbc124", "Wroclaw", "ino", 5, 45, 25, "Wro");
+       user1 = new UserData();
+       user2 = new UserData("imie", "nazwisko", "99042501019", "mbc124", "Wroclaw", "ino", 5, 45, 25, "Wro");
     }
     @Test
-    public void Test_Wczytaj() {
-        //uzytkowik1.enterData();
-        Assert.assertEquals(uzytkowik1,uzytkownik2);
+    public void enterUserData() {
+        //user1.enterMoney();
+        //Assert.assertEquals(user1,user2);
     }
 
     @Test
-    public void Test_toString() {
+    public void toStringTest() {
         Assert.assertEquals("\n1.Imie: " + "imie" +
                 "\n2.Nazwisko: " + "nazwisko" +
                 "\n3.PESEL: " + "99042501019" +
@@ -29,6 +29,6 @@ public class DaneUzytkownikaTest {
                 "\n7.Numer domu: " + 5 +
                 "\n8.Numer mieszkania: " + 45 +
                 "\n9.Kod pocztowy: " + 25 +
-                "\n10.Poczta: " + "Wro", uzytkownik2.toString());
+                "\n10.Poczta: " + "Wro", user2.toString());
     }
 }
