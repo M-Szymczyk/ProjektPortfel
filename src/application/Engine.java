@@ -144,6 +144,6 @@ jak konczy sie dzien to jezeli nie bylo zadnej transakcji to przypomnienie o tym
  testy - zajme sie tym
 
  numery kont bankowych powinny byc unikalne - zajme sie tym
- 
+
 */
 

@@ -23,10 +23,6 @@ public class Wallet extends AmountOfMoney implements WalletInterface {
 
     public Wallet() { }
 
-    Wallet(BigDecimal money, String name) {
-        super(money, name);
-    }
-
     /** ==================== METODY ========================= */
 
     /** ---------- Wczytywanie danych portfela -------------- */

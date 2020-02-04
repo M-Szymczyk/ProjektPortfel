@@ -38,12 +38,6 @@ public class BankAccount extends AmountOfMoney implements BankAccountInterface {
         this.accountHolder = null;
     }
 
-    public BankAccount(BigDecimal money, String name, BigDecimal numberBankAccount, UserData accountHolder) {
-        super(money,name);
-        this.numberBankAccount = numberBankAccount;
-        this.accountHolder = accountHolder;
-    }
-
     /** ======================= METODY ============================ */
 
     /** ---------------- Numer konta bankowego -------------------- */
