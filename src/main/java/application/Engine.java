@@ -84,7 +84,15 @@ public class Engine implements EnterDataInterface {
                     else {
                         list(bankAccounts);
                         System.out.println("Ktore konto wyswietlic: ");
-                        System.out.println(bankAccounts.get(EnterDataInterface.enterInt() - 1).toString());
+                        AmountOfMoney chosenAccount = bankAccounts.get(EnterDataInterface.enterInt() - 1);
+                        System.out.println(chosenAccount.toString());
+
+                        // if you have any better idea than casting, you can improve it
+                        // P.S. the problem is, when you implement it in BankAccount class,
+                        // you will receive account holder question before printing it on console
+                        BankAccount chosenBankAccount = (BankAccount) chosenAccount;
+                        if(!chosenBankAccount.hasAccountHolder())
+                            chosenBankAccount.setAccountHolder();
                     }
                     break;
                 case 5:

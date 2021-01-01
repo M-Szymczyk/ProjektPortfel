@@ -1,6 +1,7 @@
 package application.data;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.Scanner;
 
 interface BankAccountInterface {
@@ -55,8 +56,18 @@ public class BankAccount extends AmountOfMoney implements BankAccountInterface {
 
     /** --------------------- Wlasciciel -------------------------- */
 
-    private UserData getAccountHolder() {
-        return this.accountHolder;
+    public boolean hasAccountHolder(){
+        // it gives information about existence of account holder in current bank account, concurrently avoiding getter
+        return this.accountHolder != null;
+    }
+
+    public void setAccountHolder(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Czy chcesz dodac dane wlasciciela tego konta? (T/N): ");
+        if (scanner.nextLine().equalsIgnoreCase("T")) {
+            accountHolder = new UserData();
+            accountHolder.enterUserData();
+        } else System.out.println("Podpowiedz: Dane mozesz wpisac w kazdej chwili wybierajac opcje w menu startowym.");
     }
 
     /** ---------- Wczytywanie danych konta bankowego ------------- */
@@ -76,11 +87,7 @@ public class BankAccount extends AmountOfMoney implements BankAccountInterface {
             }
         } while (toContinue);
 
-        System.out.println("Czy chcesz dodac dane wlasciciela tego konta? (T/N): ");
-        if (scanner.nextLine().toUpperCase().equals("T")) {
-            accountHolder = new UserData();
-            accountHolder.enterUserData();
-        } else System.out.println("Podpowiedz: Dane mozesz wpisac w kazdej chwili wybierajac opcje w menu startowym.");
+        setAccountHolder();
     }
 
     /** ------------ Odczyt danych konta bankowego --------------- */
@@ -88,6 +95,8 @@ public class BankAccount extends AmountOfMoney implements BankAccountInterface {
     @Override
     public String toString() {
         return "Stan konta \"" + getName() + "\" o numerze " + getNumberBankAccount().toString() +
-                " ktorego wlascicielam jest: " + getAccountHolder().toString() + "\nwynosi: " + super.toString();
+                " ktorego wlascicielam jest: " +
+                (hasAccountHolder() ? accountHolder.toString() : "(brak informacji)") +
+                "\nwynosi: " + super.toString();
     }
 }
