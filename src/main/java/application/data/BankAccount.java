@@ -28,7 +28,8 @@ class BankAccountException extends Exception{
 
 public class BankAccount extends AmountOfMoney implements BankAccountInterface {
     // bede tworzyc transakcje i dodawac tutaj liste transakcji. pomysle nad ich limitem
-
+    private final static int accountNumberDigits = 26;
+    private final static NumbersDataBase numbersDataBase = new NumbersDataBase(accountNumberDigits);
     private BigDecimal numberBankAccount;
     private UserData accountHolder;
 
@@ -46,8 +47,17 @@ public class BankAccount extends AmountOfMoney implements BankAccountInterface {
     private void setNumberBankAccount(BigDecimal numberBankAccount) throws BankAccountException {
         if (numberBankAccount.compareTo(new BigDecimal(0)) < 0) {
             throw new BankAccountException("Numer konta bankowego nie moze byc mniejszy niz zero!");
-        } else
+        }
+        else if(numberBankAccount.precision() - numberBankAccount.scale() > accountNumberDigits){
+            throw new BankAccountException("Numer konta bankowego nie moze byc dluzszy niz " + accountNumberDigits);
+        }
+        else if(numbersDataBase.check(numberBankAccount)){
+            throw new BankAccountException("Podany numer konta jest już w bazie!");
+        }
+        else{
             this.numberBankAccount = numberBankAccount;
+            numbersDataBase.add(numberBankAccount);
+        }
     }
 
     private BigDecimal getNumberBankAccount() {
@@ -74,7 +84,6 @@ public class BankAccount extends AmountOfMoney implements BankAccountInterface {
 
     public void enterDataBankAccount() {
         super.enterMoney();//wywoluje metode enterMoney klasy AmountOfMoney
-        Scanner scanner = new Scanner(System.in);
         boolean toContinue;
         do {
             try {
