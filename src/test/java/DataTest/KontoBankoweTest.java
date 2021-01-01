@@ -1,8 +1,8 @@
 package DataTest;
 
-import org.junit.Test;
 import application.data.UserData;
 import application.data.BankAccount;
+import org.junit.jupiter.api.Test;
 
 public class KontoBankoweTest {
     @Test

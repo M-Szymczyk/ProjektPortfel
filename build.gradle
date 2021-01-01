@@ -1,8 +1,9 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
-group 'org.example'
+group 'application'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -17,3 +18,9 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+run{
+    standardInput = System.in
+}
+
+mainClassName = 'application.Engine'
