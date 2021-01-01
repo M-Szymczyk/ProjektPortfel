@@ -1,6 +1,7 @@
 package application.data;
 
 import java.math.BigDecimal;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public interface EnterDataInterface {
@@ -16,8 +17,8 @@ public interface EnterDataInterface {
         do{
             isError = false;
             try{
-                enteredInt = Integer.parseInt(new Scanner(System.in).nextLine());
-            } catch(NumberFormatException e){
+                enteredInt = new Scanner(System.in).nextInt();
+            } catch(InputMismatchException e){
                 System.err.println("Musisz podac liczbe!");
                 isError = true;
             }
@@ -36,8 +37,8 @@ public interface EnterDataInterface {
         do{
             isError = false;
             try{
-                enteredBigDecimal = new BigDecimal(new Scanner(System.in).nextLine());
-            } catch(NumberFormatException e){
+                enteredBigDecimal = new Scanner(System.in).nextBigDecimal();
+            } catch(InputMismatchException e){
                 System.err.println("Musisz podac liczbe!");
                 isError = true;
             }
