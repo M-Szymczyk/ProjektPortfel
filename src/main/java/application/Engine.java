@@ -84,7 +84,15 @@ public class Engine implements EnterDataInterface {
                     else {
                         list(bankAccounts);
                         System.out.println("Ktore konto wyswietlic: ");
-                        System.out.println(bankAccounts.get(EnterDataInterface.enterInt() - 1).toString());
+                        AmountOfMoney chosenAccount = bankAccounts.get(EnterDataInterface.enterInt() - 1);
+                        System.out.println(chosenAccount.toString());
+
+                        // if you have any better idea than casting, you can improve it
+                        // P.S. the problem is, when you implement it in BankAccount class,
+                        // you will receive account holder question before printing it on console
+                        BankAccount chosenBankAccount = (BankAccount) chosenAccount;
+                        if(!chosenBankAccount.hasAccountHolder())
+                            chosenBankAccount.setAccountHolder();
                     }
                     break;
                 case 5:
@@ -127,23 +135,3 @@ public class Engine implements EnterDataInterface {
             }
     }
 }
-/**
-
-przydalby sie jakis alarm od słabego stanu konta, tzn np w ciągu tygodnia załóżmy twój stan konta 'x' spadł o 90%
-i wtedy jakies powiadomienie ze niski stan konta 'x'
-
-mozliwosc ustawienia stalych dochodow i wydatkow (np doladowanie, netflix itp)
-
-(opcjonalnie) jak wylaczasz apke to wyskakuje okienko z obrotami jakie zrobiles (o ile zrobiles) przykladowo:
-wydales dzis: 50 zł, otrzymales dzis: 150zł. i tak za kazdym razem jak wylaczasz apke i dokonales jakis zmian
-(czyli wpisales transakcje). mysle jednak ze to powinno byc opcjonalnie w ustawieniach i ewentualnie alternatywa
-że nie po kazdym wylaczeniu apki tylko np na koniec dnia dopiero
-
-jak konczy sie dzien to jezeli nie bylo zadnej transakcji to przypomnienie o tym ze nie wykonales zadnej transakcji
-
- testy - zajme sie tym
-
- numery kont bankowych powinny byc unikalne - zajme sie tym
-
-*/
-
