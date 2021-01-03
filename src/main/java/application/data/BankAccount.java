@@ -1,7 +1,6 @@
 package application.data;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 import java.util.Scanner;
 
 interface BankAccountInterface {
@@ -19,7 +18,7 @@ interface BankAccountInterface {
     String toString();
 }
 
-class BankAccountException extends Exception{
+class BankAccountException extends Exception {
 
     BankAccountException(String message) {
         super(message);
@@ -33,7 +32,9 @@ public class BankAccount extends AmountOfMoney implements BankAccountInterface {
     private BigDecimal numberBankAccount;
     private UserData accountHolder;
 
-    /** ==================== KONSTRUKTORY ========================= */
+    /**
+     * ==================== KONSTRUKTORY =========================
+     */
 
     public BankAccount() {
         this.numberBankAccount = null;
@@ -42,19 +43,18 @@ public class BankAccount extends AmountOfMoney implements BankAccountInterface {
 
     /** ======================= METODY ============================ */
 
-    /** ---------------- Numer konta bankowego -------------------- */
+    /**
+     * ---------------- Numer konta bankowego --------------------
+     */
 
     private void setNumberBankAccount(BigDecimal numberBankAccount) throws BankAccountException {
         if (numberBankAccount.compareTo(new BigDecimal(0)) < 0) {
             throw new BankAccountException("Numer konta bankowego nie moze byc mniejszy niz zero!");
-        }
-        else if(numberBankAccount.precision() - numberBankAccount.scale() > accountNumberDigits){
+        } else if (numberBankAccount.precision() - numberBankAccount.scale() > accountNumberDigits) {
             throw new BankAccountException("Numer konta bankowego nie moze byc dluzszy niz " + accountNumberDigits);
-        }
-        else if(numbersDataBase.check(numberBankAccount)){
+        } else if (numbersDataBase.check(numberBankAccount)) {
             throw new BankAccountException("Podany numer konta jest już w bazie!");
-        }
-        else{
+        } else {
             this.numberBankAccount = numberBankAccount;
             numbersDataBase.add(numberBankAccount);
         }
@@ -64,14 +64,16 @@ public class BankAccount extends AmountOfMoney implements BankAccountInterface {
         return numberBankAccount;
     }
 
-    /** --------------------- Wlasciciel -------------------------- */
+    /**
+     * --------------------- Wlasciciel --------------------------
+     */
 
-    public boolean hasAccountHolder(){
+    public boolean hasAccountHolder() {
         // it gives information about existence of account holder in current bank account, concurrently avoiding getter
         return this.accountHolder != null;
     }
 
-    public void setAccountHolder(){
+    public void enterAccountHolder() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Czy chcesz dodac dane wlasciciela tego konta? (T/N): ");
         if (scanner.nextLine().equalsIgnoreCase("T")) {
@@ -80,7 +82,9 @@ public class BankAccount extends AmountOfMoney implements BankAccountInterface {
         } else System.out.println("Podpowiedz: Dane mozesz wpisac w kazdej chwili wybierajac opcje w menu startowym.");
     }
 
-    /** ---------- Wczytywanie danych konta bankowego ------------- */
+    /**
+     * ---------- Wczytywanie danych konta bankowego -------------
+     */
 
     public void enterDataBankAccount() {
         super.enterMoney();//wywoluje metode enterMoney klasy AmountOfMoney
@@ -96,10 +100,12 @@ public class BankAccount extends AmountOfMoney implements BankAccountInterface {
             }
         } while (toContinue);
 
-        setAccountHolder();
+        enterAccountHolder();
     }
 
-    /** ------------ Odczyt danych konta bankowego --------------- */
+    /**
+     * ------------ Odczyt danych konta bankowego ---------------
+     */
 
     @Override
     public String toString() {
