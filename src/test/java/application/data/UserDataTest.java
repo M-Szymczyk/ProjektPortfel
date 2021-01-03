@@ -17,9 +17,6 @@ public class UserDataTest {
     public void enterUserData() {
         // @TODO I wish it will be helpful :
         // https://stackoverflow.com/questions/6415728/junit-testing-with-simulated-user-input
-
-        //user1.enterMoney();
-        //Assert.assertEquals(user1,user2);
     }
 
     @Test
