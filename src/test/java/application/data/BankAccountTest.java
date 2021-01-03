@@ -1,10 +1,8 @@
-package DataTest;
+package application.data;
 
-import application.data.UserData;
-import application.data.BankAccount;
 import org.junit.jupiter.api.Test;
 
-public class KontoBankoweTest {
+public class BankAccountTest {
     @Test
     public void wczytajTest(){
         UserData user2 = new UserData("imie", "nazwisko", "99042501019", "mbc124", "Wroclaw", "ino", 5, 45, 25, "Wro");

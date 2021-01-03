@@ -1,6 +1,5 @@
-package DataTest;
+package application.data;
 
-import application.data.UserData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
