@@ -4,11 +4,12 @@ import org.junit.jupiter.api.Test;
 
 public class BankAccountTest {
     @Test
-    public void wczytajTest(){
-        UserData user2 = new UserData("imie", "nazwisko", "99042501019", "mbc124", "Wroclaw", "ino", 5, 45, 25, "Wro");
-        BankAccount account1=new BankAccount();
-        //account1.enterDataBankAccount();
-        //Assert.assertEquals();
+    public void setNumberBankAccountTest(){
+        // @TODO
     }
 
+    @Test
+    public void enterDataBankAccountTest(){
+        // @TODO
+    }
 }
