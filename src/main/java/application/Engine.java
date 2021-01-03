@@ -92,7 +92,7 @@ public class Engine implements EnterDataInterface {
                         // you will receive account holder question before printing it on console
                         BankAccount chosenBankAccount = (BankAccount) chosenAccount;
                         if(!chosenBankAccount.hasAccountHolder())
-                            chosenBankAccount.setAccountHolder();
+                            chosenBankAccount.enterAccountHolder();
                     }
                     break;
                 case 5:
