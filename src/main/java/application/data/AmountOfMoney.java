@@ -80,6 +80,40 @@ public abstract class AmountOfMoney implements AmountOfMoneyInterface, EnterData
 
     /** ----------------------- Transakcja --------------------------- */
 
+    private boolean pay(){
+        System.out.println("Ile gotowki wplacono?");
+        try {
+            BigDecimal toPay=EnterDataInterface.enterBigDecimal();
+            if (toPay.compareTo(new BigDecimal(0)) <= 0) {
+                System.out.println("Nie mozna wplacic zero lub mniej niz zero gotowki!");
+                return false;
+            } else {
+                this.money=this.money.add(toPay);
+                return true;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Musisz podac liczbe!");
+            return false;
+        }
+    }
+
+    private boolean withdraw(){
+        System.out.println("Ile gotowki wyplacono?");
+        try {
+            BigDecimal toWithdraw=EnterDataInterface.enterBigDecimal();
+            if (toWithdraw.compareTo(new BigDecimal(0)) <= 0) {
+                System.out.println("Nie mozna wyplacic zero lub mniej niz zero gotowki!");
+                return false;
+            } else {
+                this.money=this.money.subtract(toWithdraw);
+                return true;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Musisz podac liczbe!");
+            return false;
+        }
+    }
+
     public void transaction() {
         Scanner scan = new Scanner(System.in);
         boolean toContinue;
@@ -89,38 +123,12 @@ public abstract class AmountOfMoney implements AmountOfMoneyInterface, EnterData
                 switch (Integer.parseInt(scan.nextLine())) {
                     case 1:
                         do {
-                            System.out.println("Ile gotowki wplacono?");
-                            try {
-                                BigDecimal toPay=EnterDataInterface.enterBigDecimal();
-                                if (toPay.compareTo(new BigDecimal(0)) <= 0) {
-                                    System.out.println("Nie mozna wplacic zero lub mniej niz zero gotowki!");
-                                    toContinue = true;
-                                } else {
-                                    this.money=this.money.add(toPay);
-                                    toContinue = false;
-                                }
-                            } catch (NumberFormatException e) {
-                                System.out.println("Musisz podac liczbe!");
-                                toContinue = true;
-                            }
+                            toContinue = !pay();
                         } while (toContinue);
                         break;
                     case 2:
                         do {
-                            System.out.println("Ile gotowki wyplacono?");
-                            try {
-                                BigDecimal toWithdraw=EnterDataInterface.enterBigDecimal();
-                                if (toWithdraw.compareTo(new BigDecimal(0)) <= 0) {
-                                    System.out.println("Nie mozna wyplacic zero lub mniej niz zero gotowki!");
-                                    toContinue = true;
-                                } else {
-                                    this.money=this.money.subtract(toWithdraw);
-                                    toContinue = false;
-                                }
-                            } catch (NumberFormatException e) {
-                                System.out.println("Musisz podac liczbe!");
-                                toContinue = true;
-                            }
+                            toContinue = !withdraw();
                         } while (toContinue);
                         break;
                     default:
