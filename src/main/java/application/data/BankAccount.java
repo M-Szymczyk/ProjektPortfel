@@ -50,8 +50,8 @@ public class BankAccount extends AmountOfMoney implements BankAccountInterface {
     private void setNumberBankAccount(BigDecimal numberBankAccount) throws BankAccountException {
         if (numberBankAccount.compareTo(new BigDecimal(0)) < 0) {
             throw new BankAccountException("Numer konta bankowego nie moze byc mniejszy niz zero!");
-        } else if (numberBankAccount.precision() - numberBankAccount.scale() > accountNumberDigits) {
-            throw new BankAccountException("Numer konta bankowego nie moze byc dluzszy niz " + accountNumberDigits);
+        } else if (numberBankAccount.precision() - numberBankAccount.scale() != accountNumberDigits) {
+            throw new BankAccountException("Numer konta bankowego nie moze byc innej dlugosci niz " + accountNumberDigits);
         } else if (numbersDataBase.check(numberBankAccount)) {
             throw new BankAccountException("Podany numer konta jest już w bazie!");
         } else {
