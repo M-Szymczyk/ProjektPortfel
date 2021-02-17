@@ -5,107 +5,93 @@ import java.util.Scanner;
 
 interface AmountOfMoneyInterface {
 
-    /**
-     * Do zmiany ilosci gotowki
-     */
-
-    void transaction();
+//    /**
+//     * Do zmiany ilosci gotowki
+//     */
+    //void transaction();
 
     /**
      * Do wczytawania poczatkowego stanu gotowki
      */
-
     void enterMoney();
 
     /**
      * Do zwracania stanu gotowki
      */
-
     String toString();
 
     /**
      * Do listowania kont i portfeli
+     *
      * @return zwraca nazwe obiektu
      */
-
     String getName();
 
-}
-
-class AmountOfMoneyException extends Exception{
-    AmountOfMoneyException(String message) {
-        super(message);
-    }
 }
 
 public abstract class AmountOfMoney implements AmountOfMoneyInterface, EnterDataInterface {
     private BigDecimal money;
     private String name;
 
-    /** ====================== KONSTRUKTORY =========================== */
+    /* ====================== KONSTRUKTORY =========================== */
 
     AmountOfMoney(BigDecimal money, String name) {
-        this.money=money;
-        this.name=name;
+        this.money = money;
+        this.name = name;
     }
 
     AmountOfMoney() {
-        this.money=null;
+        this.money = null;
     }
 
-    /** ========================= METODY ============================= */
+    /*========================= METODY ============================= */
 
-    /** ------------------------- Nazwa ------------------------------ */
+    /*------------------------- Nazwa ------------------------------*/
 
     public String getName() {
         return this.name;
     }
 
     private void setName(String name) throws AmountOfMoneyException {
-        if (name == null || name.equals("")){
-            throw new AmountOfMoneyException("Musisz podac nazwe zlozona ze znakow!");}
-        else
+        if (name == null || name.equals("")) {
+            throw new AmountOfMoneyException("Musisz podac nazwe zlozona ze znakow!");
+        } else
             this.name = name;
     }
 
-    /** ----------------------- Pieniądze ---------------------------- */
+    /* ----------------------- Pieniądze ----------------------------*/
 
-    public BigDecimal getMoney(){
+    public BigDecimal getMoney() {
         return this.money;
     }
 
-    public void setMoney(BigDecimal money){
-        this.money=money;
+    public void setMoney(BigDecimal money) {
+        this.money = money;
     }
 
-    /** ----------------------- Transakcja --------------------------- */
+    /*----------------------- Transakcja ---------------------------*/
 
-    private boolean pay(){
-        System.out.println("Ile gotowki wplacono?");
-        try {
-            BigDecimal toPay=EnterDataInterface.enterBigDecimal();
-            if (toPay.compareTo(new BigDecimal(0)) <= 0) {
-                System.out.println("Nie mozna wplacic zero lub mniej niz zero gotowki!");
-                return false;
-            } else {
-                this.money=this.money.add(toPay);
-                return true;
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Musisz podac liczbe!");
-            return false;
-        }
+    public void depositMoney(String depositMoney) throws AmountOfMoneyException {
+        BigDecimal money = new BigDecimal(depositMoney);
+        depositMoney(money);
     }
 
-    private boolean withdraw(){
+    public void depositMoney(BigDecimal depositMoney) throws AmountOfMoneyException {
+        if (depositMoney.compareTo(new BigDecimal(0)) <= 0)
+            throw new AmountOfMoneyException("Nie mozna wplacic zero lub mniej niz zero gotowki!");
+        else
+            setMoney(getMoney().add(depositMoney));
+    }
+
+    private boolean withdraw() {
         System.out.println("Ile gotowki wyplacono?");
         try {
-            BigDecimal toWithdraw=EnterDataInterface.enterBigDecimal();
+            BigDecimal toWithdraw = EnterDataInterface.enterBigDecimal();
             if (toWithdraw.compareTo(new BigDecimal(0)) <= 0) {
                 System.out.println("Nie mozna wyplacic zero lub mniej niz zero gotowki!");
                 return false;
             } else {
-                this.money=this.money.subtract(toWithdraw);
+                this.money = this.money.subtract(toWithdraw);
                 return true;
             }
         } catch (NumberFormatException e) {
@@ -114,36 +100,36 @@ public abstract class AmountOfMoney implements AmountOfMoneyInterface, EnterData
         }
     }
 
-    public void transaction() {
-        Scanner scan = new Scanner(System.in);
-        boolean toContinue;
-        do {
-            System.out.println("1.Wplata czy 2.wyplata gotowki?[1/2]");
-            try {
-                switch (Integer.parseInt(scan.nextLine())) {
-                    case 1:
-                        do {
-                            toContinue = !pay();
-                        } while (toContinue);
-                        break;
-                    case 2:
-                        do {
-                            toContinue = !withdraw();
-                        } while (toContinue);
-                        break;
-                    default:
-                        System.out.println("Brak takiej opcji!");
-                        break;
-                }
-                toContinue = false;
-            } catch (NumberFormatException e) {
-                System.out.println("Podaj cyfre!");
-                toContinue = true;
-            }
-        } while (toContinue);
-    }
+//    public void transaction() {
+//        Scanner scan = new Scanner(System.in);
+//        boolean toContinue;
+//        do {
+//            System.out.println("1.Wplata czy 2.wyplata gotowki?[1/2]");
+//            try {
+//                switch (Integer.parseInt(scan.nextLine())) {
+//                    case 1:
+//                        do {
+//                            toContinue = !pay();
+//                        } while (toContinue);
+//                        break;
+//                    case 2:
+//                        do {
+//                            toContinue = !withdraw();
+//                        } while (toContinue);
+//                        break;
+//                    default:
+//                        System.out.println("Brak takiej opcji!");
+//                        break;
+//                }
+//                toContinue = false;
+//            } catch (NumberFormatException e) {
+//                System.out.println("Podaj cyfre!");
+//                toContinue = true;
+//            }
+//        } while (toContinue);
+//    }
 
-    /** -------------------- Wczytywanie hajsu ------------------------ */
+    /*-------------------- Wczytywanie hajsu ------------------------*/
 
     public void enterMoney() {
         Scanner scaner = new Scanner(System.in);
@@ -157,12 +143,12 @@ public abstract class AmountOfMoney implements AmountOfMoneyInterface, EnterData
                 System.out.println(e.getMessage());
                 toContinue = true;
             }
-        }while (toContinue);
+        } while (toContinue);
         System.out.println("Podaj ilosc pieniedzy: ");
         setMoney(EnterDataInterface.enterBigDecimal());
     }
 
-    /** ---------------------- Odczyt hajsu -------------------------- */
+    /*---------------------- Odczyt hajsu --------------------------*/
 
     @Override
     public String toString() {
