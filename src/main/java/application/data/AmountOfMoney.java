@@ -71,11 +71,11 @@ public abstract class AmountOfMoney implements AmountOfMoneyInterface, EnterData
 
     /*----------------------- Transakcja ---------------------------*/
 
-    public void depositMoney(String depositMoney) throws AmountOfMoneyException {
-        BigDecimal money = new BigDecimal(depositMoney);
-        depositMoney(money);
-    }
-
+    /**
+     * Method to deposit money
+     * @param depositMoney how much money to deposit
+     * @throws AmountOfMoneyException if money was less than 0
+     */
     public void depositMoney(BigDecimal depositMoney) throws AmountOfMoneyException {
         if (depositMoney.compareTo(new BigDecimal(0)) <= 0)
             throw new AmountOfMoneyException("Nie mozna wplacic zero lub mniej niz zero gotowki!");
@@ -83,51 +83,15 @@ public abstract class AmountOfMoney implements AmountOfMoneyInterface, EnterData
             setMoney(getMoney().add(depositMoney));
     }
 
-    private boolean withdraw() {
-        System.out.println("Ile gotowki wyplacono?");
-        try {
-            BigDecimal toWithdraw = EnterDataInterface.enterBigDecimal();
-            if (toWithdraw.compareTo(new BigDecimal(0)) <= 0) {
-                System.out.println("Nie mozna wyplacic zero lub mniej niz zero gotowki!");
-                return false;
-            } else {
-                this.money = this.money.subtract(toWithdraw);
-                return true;
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Musisz podac liczbe!");
-            return false;
-        }
+    /**
+     * Method to withdraw money
+     * @param toWithdraw how much money to withdraw
+     */
+    public void withdraw(BigDecimal toWithdraw) {
+        if (toWithdraw.compareTo(new BigDecimal(0)) <= 0)
+            throw new IllegalArgumentException("Nie mozna wyplacic zero lub mniej niz zero gotowki!");
+        this.money = this.money.subtract(toWithdraw);
     }
-
-//    public void transaction() {
-//        Scanner scan = new Scanner(System.in);
-//        boolean toContinue;
-//        do {
-//            System.out.println("1.Wplata czy 2.wyplata gotowki?[1/2]");
-//            try {
-//                switch (Integer.parseInt(scan.nextLine())) {
-//                    case 1:
-//                        do {
-//                            toContinue = !pay();
-//                        } while (toContinue);
-//                        break;
-//                    case 2:
-//                        do {
-//                            toContinue = !withdraw();
-//                        } while (toContinue);
-//                        break;
-//                    default:
-//                        System.out.println("Brak takiej opcji!");
-//                        break;
-//                }
-//                toContinue = false;
-//            } catch (NumberFormatException e) {
-//                System.out.println("Podaj cyfre!");
-//                toContinue = true;
-//            }
-//        } while (toContinue);
-//    }
 
     /*-------------------- Wczytywanie hajsu ------------------------*/
 

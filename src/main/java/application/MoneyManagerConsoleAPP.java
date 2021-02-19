@@ -39,38 +39,56 @@ public class MoneyManagerConsoleAPP {
             switch (EnterDataInterface.enterInt()) {
                 case 1:
                     /* ------------------ Dodawanie transakcji ------------------ */
-                    if (engine.thereAreAnyBanksAccounts() && engine.thereAreAnyWallets()) {
-                        //transakcja jezeli sa portfele i konta
-                        System.out.println("Transakcja w portfelu,czy na koncie?[P/K]");
-                        String userAnswer = scan.nextLine().toUpperCase();
-                        if (userAnswer.equals("K")) {
-                            list(engine.getBankAccounts());
-                            System.out.println("W ktorym koncie dodajemy transkacje: ");
-                            pay("b", EnterDataInterface.enterInt() - 1);
-                        } else if (userAnswer.equals("P")) {
-                            list(engine.getWallets());
-                            System.out.println("W ktorym portfelu dodajemy transkacje: ");
-                            pay("w", EnterDataInterface.enterInt() - 1);
-                        } else {
-                            System.out.println("Nie ma takiej opcji!");
-                        }
-                    } else if (engine.thereAreAnyBanksAccounts()) {
-                        //transakcja jezeli sa tylko konta
-                        list(engine.getBankAccounts());
-                        System.out.println("W ktorym koncie dodajemy transkacje: ");
-                        pay("b", EnterDataInterface.enterInt() - 1);
-                    } else if (engine.thereAreAnyWallets()) {
-                        //transakcja jezeli sa tylko portfele
-                        list(engine.getWallets());
-                        System.out.println("W ktorym portfelu dodajemy transkacje: ");
-                        pay("w", EnterDataInterface.enterInt() - 1);
-                    } else {
-                        //informacja o braku portfeli i kont
-                        System.out.println("Nie masz zadnych portfeli!");
-                        System.out.println("Nie masz zadnych kont!");
-                        System.out.println("Musisz najpierw dodac konto lub portfel");
-                    }
+                    if (engine.thereAreAnyBanksAccounts() || engine.thereAreAnyWallets()) {
+                        int payOrWithdraw=0;
+                        boolean toContinuePayOrWithdraw;
+                        do {
+                            System.out.println("1.Wplata czy 2.wyplata gotowki?[1/2]");
+                            try {
+                                switch (Integer.parseInt(scan.nextLine())) {
+                                    case 1:
+                                        payOrWithdraw=1;
+                                        toContinuePayOrWithdraw = false;
+                                        break;
+                                    case 2:
+                                        payOrWithdraw=2;
+                                        toContinuePayOrWithdraw = false;
+                                        break;
+                                    default:
+                                        System.out.println("Brak takiej opcji! Dostępne opcje to 1 lub 2");
+                                        toContinuePayOrWithdraw = true;
+                                        break;
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println("Podaj cyfre!");
+                                toContinuePayOrWithdraw = true;
+                            }
+                        } while (toContinuePayOrWithdraw);
 
+                        if (engine.thereAreAnyBanksAccounts()) {
+                            if (engine.thereAreAnyWallets()) {
+                                //transakcja jezeli sa portfele i konta
+                                System.out.println("Transakcja w portfelu,czy na koncie?[P/K]");
+                                String userAnswer = scan.nextLine().toUpperCase();
+                                if (userAnswer.equals("K"))
+                                    transactionOnBankAccount(payOrWithdraw);
+                                else if (userAnswer.equals("P"))
+                                    transactionOnWallet(payOrWithdraw);
+                                else
+                                    System.out.println("Nie ma takiej opcji!");
+                            } else {
+                                //transakcja jezeli sa tylko konta
+                                transactionOnBankAccount(payOrWithdraw);
+                            }
+                        } else {
+                            //transakcja jezeli sa tylko portfele
+                            transactionOnWallet(payOrWithdraw);
+                        }
+                    } else
+                        //informacja o braku portfeli i kont
+                        System.out.println("Nie masz zadnych portfeli!"
+                                + "Nie masz zadnych kont!"
+                                + "Musisz najpierw dodac konto lub portfel");
                     break;
                 case 2:
                     /* ------------------ Tworzenie nowego konta ------------------ */
@@ -144,14 +162,14 @@ public class MoneyManagerConsoleAPP {
             }
     }
 
-    void pay(String type, int index) {
+    void deposit(String type, int index) {
         boolean isCorrect;
         do {
             try {
                 System.out.println("Ile gotowki wplacono?");
                 BigDecimal toPay = EnterDataInterface.enterBigDecimal();
                 engine.DepositMoney(index, type, toPay);
-                isCorrect=true;
+                isCorrect = true;
             } catch (NumberFormatException e) {
                 System.out.println("Musisz podac liczbe!");
                 isCorrect = false;
@@ -160,5 +178,41 @@ public class MoneyManagerConsoleAPP {
                 isCorrect = false;
             }
         } while (!isCorrect);
+    }
+
+    void withdraw(String type, int index){
+        boolean isCorrect;
+        do {
+            try {
+                System.out.println("Ile gotowki wyplacaono?");
+                BigDecimal toPay = EnterDataInterface.enterBigDecimal();
+                engine.WithDrawMoney(index, type, toPay);
+                isCorrect = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Musisz podac liczbe!");
+                isCorrect = false;
+            } catch (AmountOfMoneyException | IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                isCorrect = false;
+            }
+        } while (!isCorrect);
+    }
+
+    private void transactionOnBankAccount(int payOrWithDraw) {
+        list(engine.getBankAccounts());
+        System.out.println("W ktorym koncie dodajemy transkacje: ");
+        if(payOrWithDraw==1)
+            deposit("b", EnterDataInterface.enterInt() - 1);
+        else
+            withdraw("b", EnterDataInterface.enterInt() - 1);
+    }
+
+    private void transactionOnWallet(int payOrWithDraw) {
+        list(engine.getWallets());
+        System.out.println("W ktorym portfelu dodajemy transkacje: ");
+        if(payOrWithDraw==1)
+            deposit("w", EnterDataInterface.enterInt() - 1);
+        else
+            withdraw("w", EnterDataInterface.enterInt() - 1);
     }
 }
