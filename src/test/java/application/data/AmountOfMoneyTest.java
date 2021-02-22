@@ -1,5 +1,7 @@
 package application.data;
 
+import application.data.money.amount.AmountOfMoney;
+import application.data.money.bank.BankAccount;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

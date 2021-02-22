@@ -1,4 +1,4 @@
-package application.data;
+package application.services;
 
 import java.math.BigDecimal;
 import java.util.InputMismatchException;

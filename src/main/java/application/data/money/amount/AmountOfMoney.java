@@ -1,52 +1,17 @@
-package application.data;
+package application.data.money.amount;
+
+import application.services.EnterDataInterface;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
-
-interface AmountOfMoneyInterface {
-
-//    /**
-//     * Do zmiany ilosci gotowki
-//     */
-    //void transaction();
-
-    /**
-     * Do wczytawania poczatkowego stanu gotowki
-     */
-    void enterMoney();
-
-    /**
-     * Do zwracania stanu gotowki
-     */
-    String toString();
-
-    /**
-     * Do listowania kont i portfeli
-     *
-     * @return zwraca nazwe obiektu
-     */
-    String getName();
-
-}
 
 public abstract class AmountOfMoney implements AmountOfMoneyInterface, EnterDataInterface {
     private BigDecimal money;
     private String name;
 
-    /* ====================== KONSTRUKTORY =========================== */
-
-    AmountOfMoney(BigDecimal money, String name) {
-        this.money = money;
-        this.name = name;
-    }
-
-    AmountOfMoney() {
+    public AmountOfMoney() {
         this.money = null;
     }
-
-    /*========================= METODY ============================= */
-
-    /*------------------------- Nazwa ------------------------------*/
 
     public String getName() {
         return this.name;
@@ -59,8 +24,6 @@ public abstract class AmountOfMoney implements AmountOfMoneyInterface, EnterData
             this.name = name;
     }
 
-    /* ----------------------- Pieniądze ----------------------------*/
-
     public BigDecimal getMoney() {
         return this.money;
     }
@@ -68,8 +31,6 @@ public abstract class AmountOfMoney implements AmountOfMoneyInterface, EnterData
     public void setMoney(BigDecimal money) {
         this.money = money;
     }
-
-    /*----------------------- Transakcja ---------------------------*/
 
     /**
      * Method to deposit money
@@ -93,8 +54,6 @@ public abstract class AmountOfMoney implements AmountOfMoneyInterface, EnterData
         this.money = this.money.subtract(toWithdraw);
     }
 
-    /*-------------------- Wczytywanie hajsu ------------------------*/
-
     public void enterMoney() {
         Scanner scaner = new Scanner(System.in);
         boolean toContinue;
@@ -111,8 +70,6 @@ public abstract class AmountOfMoney implements AmountOfMoneyInterface, EnterData
         System.out.println("Podaj ilosc pieniedzy: ");
         setMoney(EnterDataInterface.enterBigDecimal());
     }
-
-    /*---------------------- Odczyt hajsu --------------------------*/
 
     @Override
     public String toString() {

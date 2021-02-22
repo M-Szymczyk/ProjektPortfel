@@ -1,9 +1,9 @@
-package application.data;
+package application.data.user;
 
+import application.services.EnterDataInterface;
 import java.util.Scanner;
 
 interface UserDataInterface {
-
     /**
      * Metoda enterMoney wczytuje data uzytkownika
      */
@@ -13,11 +13,8 @@ interface UserDataInterface {
     /**
      * Metoda to String zwraca data uzytkownknika w formie gotowej do wyswietlenia
      */
-
     String toString();
 }
-
-// wyjatek na blednie wklepane data przez uzytkownika
 
 class UserDataException extends Exception{
     //private static final long seialVersionUID =1L;
@@ -26,27 +23,18 @@ class UserDataException extends Exception{
     }
 }
 
-/**
- *Klasa DaneUzytkownika przechowuje data uzytkownika tj.
- * imie, nazwisko, pesel, nr dowodu osobistego, miasto zamieszkania, ulice zamieszkania, nr ulicy, nr mieszkania,
- * kod pocztowy, Poczte
- */
-
 public class UserData implements UserDataInterface, EnterDataInterface {
     private String name;
     private String surname;
     private String pesel;
-    private String id_no;//nr_dowodu
-    private String residential_city;//miasto_zam
+    private String id_no;               // nr dowodu
+    private String residential_city;    // miasto zamieszkania
     private String residentail_street;
     private int house_no;
     private int flat_no;
     private int postcode;
     private String post;
 
-    /** =================== KONSTRUKTORY ======================= */
-
-    // konstruktor na nulle i zera
     public UserData() {
         this.name = null;
         this.surname = null;
@@ -60,7 +48,6 @@ public class UserData implements UserDataInterface, EnterDataInterface {
         post = null;
     }
 
-    // konstruktor na wszystko
     public UserData(String name, String surname, String pesel, String id_no, String residential_city, String residentail_street, int house_no, int flat_no, int postcode, String post) {
         this.name = name;
         this.surname = surname;
@@ -74,10 +61,6 @@ public class UserData implements UserDataInterface, EnterDataInterface {
         this.post = post;
     }
 
-    /** ====================== METODY ========================== */
-
-    /** ----------------------- Imie --------------------------- */
-
     private String getName() {
         return name;
     }
@@ -88,7 +71,6 @@ public class UserData implements UserDataInterface, EnterDataInterface {
         } else
             this.name = name;
     }
-    /** --------------------- Nazwisko ------------------------- */
 
     private String getSurname() {
         return surname;
@@ -101,8 +83,6 @@ public class UserData implements UserDataInterface, EnterDataInterface {
             this.surname = surname;
     }
 
-    /** ---------------------- Pesel --------------------------- */
-
     private String getPesel() {
         return pesel;
     }
@@ -113,8 +93,6 @@ public class UserData implements UserDataInterface, EnterDataInterface {
         else
             this.pesel = pesel;
     }
-
-    /** -------------------- nr dowodu ------------------------- */
 
     private String getId_no() {
         return id_no;
@@ -127,8 +105,6 @@ public class UserData implements UserDataInterface, EnterDataInterface {
             this.id_no = id_no;
     }
 
-    /** --------------- miasto zamieszkania -------------------- */
-
     private String getResidential_city() {
         return residential_city;
     }
@@ -139,8 +115,6 @@ public class UserData implements UserDataInterface, EnterDataInterface {
         else
             this.residential_city = residential_city;
     }
-
-    /** ---------------------- ulica --------------------------- */
 
     private String getResidentail_street() {
         return residentail_street;
@@ -153,8 +127,6 @@ public class UserData implements UserDataInterface, EnterDataInterface {
             this.residentail_street = residentail_street;
     }
 
-    /** --------------------- nr domu -------------------------- */
-
     private int getHouse_no() {
         return house_no;
     }
@@ -165,8 +137,6 @@ public class UserData implements UserDataInterface, EnterDataInterface {
         else
             this.house_no = house_no;
     }
-
-    /** ------------------ nr mieszkania ----------------------- */
 
     private int getFlat_no() {
         return flat_no;
@@ -179,8 +149,6 @@ public class UserData implements UserDataInterface, EnterDataInterface {
             this.flat_no = flat_no;
     }
 
-    /** ------------------ kod pocztowy ------------------------ */
-
     private int getPostcode() {
         return postcode;
     }
@@ -192,8 +160,6 @@ public class UserData implements UserDataInterface, EnterDataInterface {
             this.postcode = postcode;
     }
 
-    /** --------------------- poczta --------------------------- */
-
     private String getPost() {
         return post;
     }
@@ -204,8 +170,6 @@ public class UserData implements UserDataInterface, EnterDataInterface {
         else
             this.post = post;
     }
-
-    /** --------------- wczytywanie danych --------------------- */
 
     public void enterUserData() {
         Scanner scanner = new Scanner(System.in);
@@ -311,8 +275,6 @@ public class UserData implements UserDataInterface, EnterDataInterface {
             }
         } while (toContinue);
     }
-
-    /** ------------------ zwrot danych ------------------------ */
 
     @Override
     public String toString() {

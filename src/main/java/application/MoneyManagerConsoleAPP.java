@@ -1,6 +1,10 @@
 package application;
 
-import application.data.*;
+import application.data.money.amount.AmountOfMoney;
+import application.data.money.amount.AmountOfMoneyException;
+import application.data.money.bank.BankAccount;
+import application.data.money.wallet.Wallet;
+import application.services.EnterDataInterface;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

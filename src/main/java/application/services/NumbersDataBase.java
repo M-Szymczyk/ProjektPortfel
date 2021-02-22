@@ -1,7 +1,5 @@
-package application.data;
+package application.services;
 import java.math.BigDecimal;
-
-/** ================== Struktura do drzewa ================== **/
 
 class digit{
     int number;
@@ -13,23 +11,15 @@ class digit{
     }
 }
 
-/** ================== Wlasciwa klasa ================== **/
-
 public class NumbersDataBase {
     private int numberOfDigits;         // okresla ile cyfr moze miec numer konta
     private digit sentinel = null;      // wartownik na tablice "wskaznikow"
-
-    /** =============== KONSTRUKTORY =============== **/
 
     public NumbersDataBase(int numberOfDigits) {
         this.numberOfDigits = numberOfDigits;
         this.sentinel = new digit(-1);
         this.sentinel.nextDigit = null;
     }
-
-    /** ================== METODY ================== **/
-
-    /** =========== Sprawdzanie czy istnieje taki numer konta =========== **/
 
     public boolean check(BigDecimal bankAccountNumber) {
         if(this.sentinel == null) return false;
@@ -48,8 +38,6 @@ public class NumbersDataBase {
 
         return NumbersDataBase.checkDigitsInAllLevels(levelToCheck.nextDigit[numbers[level]], numbers,level+1, numberOfDigits);
     }
-
-    /** =========== Dodawanie numeru konta do bazy =========== **/
 
     public void add(BigDecimal bankAccountNumber) {
         if(this.check(bankAccountNumber)) return;
@@ -76,8 +64,6 @@ public class NumbersDataBase {
         NumbersDataBase.addDigitsToAnyLevel(levelToAdd.nextDigit[numbers[level]], numbers, level+1, numberOfDigits);
     }
 
-    /** =========== Usuwanie numeru konta z bazy =========== **/
-
     public void delete(BigDecimal bankAccountNumber){
         if(!this.check(bankAccountNumber)) return;
 
@@ -99,8 +85,6 @@ public class NumbersDataBase {
 
         return canDelete;
     }
-
-    /** ================== Pomocnicze ================== **/
 
     private static int countNumberOfDeclaredDigitsInLevel(digit levelToDelete){
         int counter = 0;
