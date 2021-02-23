@@ -7,8 +7,8 @@ import application.data.money.wallet.Wallet;
 import application.services.EnterDataInterface;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class MoneyManagerConsoleAPP {
@@ -18,8 +18,8 @@ public class MoneyManagerConsoleAPP {
                     "\n1.Dodaj transakcje" +
                     "\n2.Tworzenie nowego konta" +
                     "\n3.Tworzenie nowego portfela" +
-                    "\n4.Wyswietlenie stanu konta" +
-                    "\n5.Wyswietlenie stanu portfela" +
+                    "\n4.Wyswietlenie stanu konta/portfela" +
+                    "\n5.Wyswietlenie pelnych danych konta/portfela" +
                     "\n6.Koniec programu" +
                     "\nWybierz opcje: ";
 
@@ -43,7 +43,10 @@ public class MoneyManagerConsoleAPP {
             switch (EnterDataInterface.enterInt()) {
                 case 1:
                     /* ------------------ Dodawanie transakcji ------------------ */
-                    if (engine.thereAreAnyBanksAccounts() || engine.thereAreAnyWallets()) {
+
+                    // @TODO refactor here, I think some things can be unnecessary now
+
+                    if (engine.anyMoneyStorages()) {
                         int payOrWithdraw=0;
                         boolean toContinuePayOrWithdraw;
                         do {
@@ -69,27 +72,8 @@ public class MoneyManagerConsoleAPP {
                             }
                         } while (toContinuePayOrWithdraw);
 
-                        if (engine.thereAreAnyBanksAccounts()) {
-                            if (engine.thereAreAnyWallets()) {
-                                //transakcja jezeli sa portfele i konta
-                                System.out.println("Transakcja w portfelu,czy na koncie?[P/K]");
-                                String userAnswer = scan.nextLine().toUpperCase();
-                                if (userAnswer.equals("K"))
-                                    transactionOnBankAccount(payOrWithdraw);
-                                else if (userAnswer.equals("P"))
-                                    transactionOnWallet(payOrWithdraw);
-                                else
-                                    System.out.println("Nie ma takiej opcji!");
-                            } else {
-                                //transakcja jezeli sa tylko konta
-                                transactionOnBankAccount(payOrWithdraw);
-                            }
-                        } else {
-                            //transakcja jezeli sa tylko portfele
-                            transactionOnWallet(payOrWithdraw);
-                        }
+                        transaction(payOrWithdraw);
                     } else
-                        //informacja o braku portfeli i kont
                         System.out.println("Nie masz zadnych portfeli!"
                                 + "Nie masz zadnych kont!"
                                 + "Musisz najpierw dodac konto lub portfel");
@@ -97,45 +81,43 @@ public class MoneyManagerConsoleAPP {
                 case 2:
                     /* ------------------ Tworzenie nowego konta ------------------ */
 
-                    BankAccount creatingBankAccount = new BankAccount(); // tworze nowe konto
-                    creatingBankAccount.enterDataBankAccount();        // wczytuje je
-                    engine.addBankAccount(creatingBankAccount);             // no i wrzucam do arraylist
-                    break;                                             // mozna dac w dwie linijki ale tak jest czytelniej
+                    BankAccount bankAccount = new BankAccount();
+
+                    // @TODO entering data for bank account; remember about Userdata !!!!!!!!
+
+                    engine.addMoneyStorage(bankAccount);
+                    break;
                 case 3:
                     /* ---------------- Tworzenie nowego portfela ----------------- */
 
-                    Wallet creatingWallet = new Wallet();                 // tworze nowy portfel
-                    creatingWallet.enterDataWallet();                   // wczytuje go
-                    engine.addWallet(creatingWallet);                        // no i wrzucam do arraylist
-                    break;                                             // analogicznie mozna dac w dwie linijki ale po co
+                    Wallet wallet = new Wallet();
+
+                    // @TODO entering data for wallets
+
+                    engine.addMoneyStorage(wallet);
+                    break;
                 case 4:
-                    /* ----------------- Wyświetlenie stanu konta ----------------- */
+                    /* ----------------- Wyświetlenie stanu konta/portfela ----------------- */
 
-                    if (!engine.thereAreAnyBanksAccounts())
-                        System.out.println("Nie dodano zadnych kont!");
+                    if (!engine.anyMoneyStorages())
+                        System.out.println("Nie dodano zadnych kont bankowych ani portfeli!");
                     else {
-                        list(engine.getBankAccounts());
-                        System.out.println("Ktore konto wyswietlic: ");
-                        AmountOfMoney chosenAccount = engine.getBankAccounts().get(EnterDataInterface.enterInt() - 1);
-                        System.out.println(chosenAccount.toString());
-
-                        // if you have any better idea than casting, you can improve it
-                        // P.S. the problem is, when you implement it in BankAccount class,
-                        // you will receive account holder question before printing it on console
-                        BankAccount chosenBankAccount = (BankAccount) chosenAccount;
-                        if (!chosenBankAccount.hasAccountHolder())
-                            chosenBankAccount.enterAccountHolder();
+                        listMoneyStorages();
+                        System.out.println("Ktorego konta/portfela stan wyswietlic?: ");
+                        AmountOfMoney chosenAccount = engine.getMoneyStorages().get(EnterDataInterface.enterInt() - 1);
+                        System.out.println("Stan " + chosenAccount.getName() + " wynosi " + chosenAccount.getMoney());
                     }
                     break;
                 case 5:
-                    /* --------------- Wyświetlenie stanu portfela ---------------- */
+                    /* ----------------- Wyświetlenie stanu konta/portfela ----------------- */
 
-                    if (!engine.thereAreAnyWallets())
-                        System.out.println("Nie dodano zadnych portfeli!");
+                    if (!engine.anyMoneyStorages())
+                        System.out.println("Nie dodano zadnych kont bankowych ani portfeli!");
                     else {
-                        list(engine.getWallets());
-                        System.out.println("Ktore konto wyswietlic: ");
-                        System.out.println(engine.getWallets().get(EnterDataInterface.enterInt() - 1).toString());
+                        listMoneyStorages();
+                        System.out.println("Ktorego konta/portfela dane wyswietlic?: ");
+                        AmountOfMoney chosenAccount = engine.getMoneyStorages().get(EnterDataInterface.enterInt() - 1);
+                        System.out.println(chosenAccount.toString());
                     }
                     break;
                 case 6:
@@ -144,35 +126,46 @@ public class MoneyManagerConsoleAPP {
                     toContinue = false;
                     break;
                 default:
-                    System.out.println("Nie ma takiej opcji");
+                    System.out.println("Nie ma takiej opcji!");
                     break;
             }
         } while (toContinue);
-        System.out.println("Koniec");
+        System.out.println("Koniec!");
     }
 
     /**
-     * metoda list listuje elementy arraylisty
-     *
-     * @param obj listowana arraylista
+     * Method to list all bank accounts and wallets
      */
-    private void list(ArrayList<AmountOfMoney> obj) {
-        if (obj.size() == 0) {
-            System.out.println("Nie masz zadnych kont!");
-        } else
-            for (int i = 0; i < obj.size(); i++) {
-                AmountOfMoney accounts = obj.get(i);
-                System.out.println(i + 1 + "." + accounts.getName());
-            }
+    private void listMoneyStorages() {
+        if(!engine.anyMoneyStorages()){
+            System.out.println("Nie masz zadnych kont bankowych ani portfeli!");
+        } else{
+            AtomicInteger i= new AtomicInteger(1);
+            engine.getMoneyStorages().forEach(moneyStorage -> System.out.println(i.getAndIncrement() + ". " + moneyStorage.getName()));
+        }
     }
 
-    void deposit(String type, int index) {
+    /**
+     * Method to list all users saved in app (necessary when creating new bank account -
+     * - at first, choosing saved one, if not then create new)
+     */
+    private void listSavedUsers(){
+        if(!engine.anySavedUsers()){
+            System.out.println("Nie ma żadnych zapisanych użytkowników z kont bankowych!");
+        } else{
+            AtomicInteger i= new AtomicInteger();
+            engine.getSavedUsers().forEach(user -> System.out.println(i.getAndIncrement()
+                    + ". " + user.getName() + " " + user.getSurname() + " " + user.getPesel()));
+        }
+    }
+
+    void deposit(int index) {
         boolean isCorrect;
         do {
             try {
                 System.out.println("Ile gotowki wplacono?");
                 BigDecimal toPay = EnterDataInterface.enterBigDecimal();
-                engine.DepositMoney(index, type, toPay);
+                engine.depositMoney(engine.getMoneyStorages().get(index), toPay);
                 isCorrect = true;
             } catch (NumberFormatException e) {
                 System.out.println("Musisz podac liczbe!");
@@ -184,13 +177,13 @@ public class MoneyManagerConsoleAPP {
         } while (!isCorrect);
     }
 
-    void withdraw(String type, int index){
+    void withdraw(int index){
         boolean isCorrect;
         do {
             try {
                 System.out.println("Ile gotowki wyplacaono?");
                 BigDecimal toPay = EnterDataInterface.enterBigDecimal();
-                engine.WithDrawMoney(index, type, toPay);
+                engine.withdrawMoney(engine.getMoneyStorages().get(index), toPay);
                 isCorrect = true;
             } catch (NumberFormatException e) {
                 System.out.println("Musisz podac liczbe!");
@@ -202,21 +195,12 @@ public class MoneyManagerConsoleAPP {
         } while (!isCorrect);
     }
 
-    private void transactionOnBankAccount(int payOrWithDraw) {
-        list(engine.getBankAccounts());
-        System.out.println("W ktorym koncie dodajemy transkacje: ");
+    private void transaction(int payOrWithDraw) {
+        listMoneyStorages();
+        System.out.println("Na ktorym koncie/portfelu robimy transkacje?: ");
         if(payOrWithDraw==1)
-            deposit("b", EnterDataInterface.enterInt() - 1);
+            deposit(EnterDataInterface.enterInt() - 1);
         else
-            withdraw("b", EnterDataInterface.enterInt() - 1);
-    }
-
-    private void transactionOnWallet(int payOrWithDraw) {
-        list(engine.getWallets());
-        System.out.println("W ktorym portfelu dodajemy transkacje: ");
-        if(payOrWithDraw==1)
-            deposit("w", EnterDataInterface.enterInt() - 1);
-        else
-            withdraw("w", EnterDataInterface.enterInt() - 1);
+            withdraw(EnterDataInterface.enterInt() - 1);
     }
 }

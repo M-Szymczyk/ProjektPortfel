@@ -1,20 +1,31 @@
 package application.data.money.amount;
 
-interface AmountOfMoneyInterface {
+import java.math.BigDecimal;
+
+public interface AmountOfMoneyInterface {
     /**
-     * Do wczytawania poczatkowego stanu gotowki
+     * Method to deposit money
+     * @param valueToDeposit how much money to deposit
+     * @throws AmountOfMoneyException if money was less than 0
      */
-    void enterMoney();
+    void deposit(BigDecimal valueToDeposit) throws AmountOfMoneyException;
 
     /**
-     * Do zwracania stanu gotowki
+     * Method to withdraw money
+     * @param toWithdraw how much money to withdraw
      */
-    String toString();
+    void withdraw(BigDecimal toWithdraw);
 
     /**
-     * Do listowania kont i portfeli
-     *
-     * @return zwraca nazwe obiektu
+     * Method to show actual amount of money
+     * @return money in BigDecimal
+     */
+    BigDecimal getMoney();
+
+    /**
+     * Method to list accounts' and wallets' names
+     * @return name of object
      */
     String getName();
+
 }
