@@ -23,10 +23,16 @@ public abstract class AmountOfMoney implements AmountOfMoneyInterface, EnterData
             this.name = name;
     }
 
+    /**
+     * Method to list accounts' and wallets' names
+     * @return name of object
+     */
+    public abstract String getName();
+
     @Override
-    public void deposit(BigDecimal toDeposit) throws AmountOfMoneyException {
+    public void deposit(BigDecimal toDeposit){
         if (toDeposit.compareTo(new BigDecimal(0)) <= 0)
-            throw new AmountOfMoneyException("Nie mozna wplacic zero lub mniej niz zero gotowki!");
+            throw new IllegalArgumentException("Nie mozna wplacic zero lub mniej niz zero gotowki!");
         else
             setMoney(getMoney().add(toDeposit));
     }
@@ -43,9 +49,6 @@ public abstract class AmountOfMoney implements AmountOfMoneyInterface, EnterData
     public BigDecimal getMoney(){
         return this.money;
     }
-
-    @Override
-    public abstract String getName();
 
     @Override
     public String toString() {

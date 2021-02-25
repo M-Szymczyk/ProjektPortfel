@@ -1,7 +1,6 @@
 package application;
 
 import application.data.money.amount.AmountOfMoney;
-import application.data.money.amount.AmountOfMoneyException;
 import application.data.money.bank.BankAccount;
 import application.data.money.wallet.Wallet;
 import application.services.EnterDataInterface;
@@ -27,7 +26,7 @@ public class MoneyManagerConsoleAPP {
         new MoneyManagerConsoleAPP().work();
     }
 
-    void work() {
+    private void work() {
         /* =================== PRZYWITANIE ======================== */
 
         System.out.println("Witaj w programie \"MoneyManager\" !");
@@ -53,18 +52,18 @@ public class MoneyManagerConsoleAPP {
                             System.out.println("1.Wplata czy 2.wyplata gotowki?[1/2]");
                             try {
                                 switch (Integer.parseInt(scan.nextLine())) {
-                                    case 1:
-                                        payOrWithdraw=1;
+                                    case 1 -> {
+                                        payOrWithdraw = 1;
                                         toContinuePayOrWithdraw = false;
-                                        break;
-                                    case 2:
-                                        payOrWithdraw=2;
+                                    }
+                                    case 2 -> {
+                                        payOrWithdraw = 2;
                                         toContinuePayOrWithdraw = false;
-                                        break;
-                                    default:
+                                    }
+                                    default -> {
                                         System.out.println("Brak takiej opcji! Dostępne opcje to 1 lub 2");
                                         toContinuePayOrWithdraw = true;
-                                        break;
+                                    }
                                 }
                             } catch (NumberFormatException e) {
                                 System.out.println("Podaj cyfre!");
@@ -159,7 +158,7 @@ public class MoneyManagerConsoleAPP {
         }
     }
 
-    void deposit(int index) {
+    private void deposit(int index) {
         boolean isCorrect;
         do {
             try {
@@ -170,14 +169,14 @@ public class MoneyManagerConsoleAPP {
             } catch (NumberFormatException e) {
                 System.out.println("Musisz podac liczbe!");
                 isCorrect = false;
-            } catch (AmountOfMoneyException | IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
                 isCorrect = false;
             }
         } while (!isCorrect);
     }
 
-    void withdraw(int index){
+    private void withdraw(int index){
         boolean isCorrect;
         do {
             try {
@@ -188,7 +187,7 @@ public class MoneyManagerConsoleAPP {
             } catch (NumberFormatException e) {
                 System.out.println("Musisz podac liczbe!");
                 isCorrect = false;
-            } catch (AmountOfMoneyException | IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
                 isCorrect = false;
             }

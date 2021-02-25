@@ -6,9 +6,8 @@ public interface AmountOfMoneyInterface {
     /**
      * Method to deposit money
      * @param valueToDeposit how much money to deposit
-     * @throws AmountOfMoneyException if money was less than 0
      */
-    void deposit(BigDecimal valueToDeposit) throws AmountOfMoneyException;
+    void deposit(BigDecimal valueToDeposit);
 
     /**
      * Method to withdraw money
@@ -21,11 +20,4 @@ public interface AmountOfMoneyInterface {
      * @return money in BigDecimal
      */
     BigDecimal getMoney();
-
-    /**
-     * Method to list accounts' and wallets' names
-     * @return name of object
-     */
-    String getName();
-
 }

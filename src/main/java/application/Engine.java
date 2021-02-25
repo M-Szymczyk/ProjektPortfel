@@ -1,7 +1,7 @@
 package application;
 
 import application.data.money.amount.AmountOfMoney;
-import application.data.money.amount.AmountOfMoneyException;
+import application.data.money.amount.AmountOfMoneyInterface;
 import application.data.user.UserData;
 import application.services.EnterDataInterface;
 
@@ -15,11 +15,11 @@ public class Engine implements EnterDataInterface {
 
     // why objects instead of indices?
     // javafx returns objects from selection in list/table view, not indices, however in console app version it doesn't matter
-    public void depositMoney(AmountOfMoney moneyStorage, BigDecimal money) throws AmountOfMoneyException{
+    public void depositMoney(AmountOfMoneyInterface moneyStorage, BigDecimal money){
         moneyStorage.deposit(money);
     }
 
-    public void withdrawMoney(AmountOfMoney moneyStorage, BigDecimal money) throws AmountOfMoneyException{
+    public void withdrawMoney(AmountOfMoneyInterface moneyStorage, BigDecimal money){
         moneyStorage.withdraw(money);
     }
 
@@ -29,9 +29,8 @@ public class Engine implements EnterDataInterface {
      * @param source the money storage from which we are transferring money
      * @param money transfer amount
      * @param target the money storage to which we are transferring money
-     * @throws AmountOfMoneyException
      */
-    public void interTransaction(AmountOfMoney source, BigDecimal money, AmountOfMoney target) throws AmountOfMoneyException{
+    public void interTransaction(AmountOfMoney source, BigDecimal money, AmountOfMoney target){
         withdrawMoney(source, money);
         depositMoney(target, money);
     }
