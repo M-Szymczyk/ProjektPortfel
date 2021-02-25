@@ -15,11 +15,13 @@ public class MoneyManagerConsoleAPP {
     private static final String MENU =
             "\nMENU" +
                     "\n1.Dodaj transakcje" +
-                    "\n2.Tworzenie nowego konta" +
-                    "\n3.Tworzenie nowego portfela" +
-                    "\n4.Wyswietlenie stanu konta/portfela" +
-                    "\n5.Wyswietlenie pelnych danych konta/portfela" +
-                    "\n6.Koniec programu" +
+                    "\n2.Przelew między kontami/portfelami (intertransakcja)" +
+                    "\n3.Tworzenie nowego konta" +
+                    "\n4.Tworzenie nowego portfela" +
+                    "\n5.Wyswietlenie stanu konta/portfela" +
+                    "\n6.Wyswietlenie pelnych danych konta/portfela" +
+                    "\n7.Usuwanie konta/portfela" +
+                    "\n8.Koniec programu" +
                     "\nWybierz opcje: ";
 
     public static void main(String[] args) {
@@ -78,6 +80,23 @@ public class MoneyManagerConsoleAPP {
                                 + "Musisz najpierw dodac konto lub portfel");
                     break;
                 case 2:
+                    /* ------------------ Intertransakcja ------------------ */
+
+                    if(!engine.anyMoneyStorages())
+                        System.out.println("Nie dodano zadnych kont bankowych ani portfeli!");
+                    else{
+                        listMoneyStorages();
+                        System.out.println("Z ktorego konta/portfela chcialbys przelac hajs?: ");
+                        AmountOfMoney source = engine.getMoneyStorages().get(EnterDataInterface.enterInt() - 1);
+                        System.out.println("Na ktore konto/portfel chcialbys przelac hajs?: ");
+                        AmountOfMoney target = engine.getMoneyStorages().get(EnterDataInterface.enterInt() - 1);
+                        System.out.println("Podaj kwote jaka chcesz przelac: ");
+                        BigDecimal value = EnterDataInterface.enterBigDecimal();
+
+                        engine.interTransaction(source, value, target);
+                    }
+                    break;
+                case 3:
                     /* ------------------ Tworzenie nowego konta ------------------ */
 
                     BankAccount bankAccount = new BankAccount();
@@ -86,7 +105,7 @@ public class MoneyManagerConsoleAPP {
 
                     engine.addMoneyStorage(bankAccount);
                     break;
-                case 3:
+                case 4:
                     /* ---------------- Tworzenie nowego portfela ----------------- */
 
                     Wallet wallet = new Wallet();
@@ -95,7 +114,7 @@ public class MoneyManagerConsoleAPP {
 
                     engine.addMoneyStorage(wallet);
                     break;
-                case 4:
+                case 5:
                     /* ----------------- Wyświetlenie stanu konta/portfela ----------------- */
 
                     if (!engine.anyMoneyStorages())
@@ -107,7 +126,7 @@ public class MoneyManagerConsoleAPP {
                         System.out.println("Stan " + chosenAccount.getName() + " wynosi " + chosenAccount.getMoney());
                     }
                     break;
-                case 5:
+                case 6:
                     /* ----------------- Wyświetlenie stanu konta/portfela ----------------- */
 
                     if (!engine.anyMoneyStorages())
@@ -119,7 +138,19 @@ public class MoneyManagerConsoleAPP {
                         System.out.println(chosenAccount.toString());
                     }
                     break;
-                case 6:
+                case 7:
+                    /* ----------------- Usuwanie konta/portfela ----------------- */
+
+                    if(!engine.anyMoneyStorages())
+                        System.out.println("Nie dodano zadnych kont bankowych ani portfeli!");
+                    else{
+                        listMoneyStorages();
+                        System.out.println("Ktorego konta/portfela chcialbys sie pozbyc?: ");
+                        AmountOfMoney chosenAccount = engine.getMoneyStorages().get(EnterDataInterface.enterInt() - 1);
+                        engine.deleteMoneyStorage(chosenAccount);
+                    }
+                    break;
+                case 8:
                     /* -------------- Zakończenie działania programu -------------- */
 
                     toContinue = false;

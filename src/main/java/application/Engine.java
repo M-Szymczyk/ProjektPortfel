@@ -30,7 +30,7 @@ public class Engine implements EnterDataInterface {
      * @param money transfer amount
      * @param target the money storage to which we are transferring money
      */
-    public void interTransaction(AmountOfMoney source, BigDecimal money, AmountOfMoney target){
+    public void interTransaction(AmountOfMoneyInterface source, BigDecimal money, AmountOfMoneyInterface target){
         withdrawMoney(source, money);
         depositMoney(target, money);
     }
@@ -47,6 +47,11 @@ public class Engine implements EnterDataInterface {
         moneyStorages.add(moneyStorage);
     }
 
+    public void deleteMoneyStorage(AmountOfMoney moneyStorage){
+        moneyStorage.delete();
+        moneyStorages.remove(moneyStorage);
+    }
+
     public boolean anySavedUsers(){
         return !savedUsers.isEmpty();
     }
@@ -59,5 +64,11 @@ public class Engine implements EnterDataInterface {
     // higher layer = e.g. ConsoleApp, WindowApp during entering data to new bank account
     public void saveUser(UserData userData){
         savedUsers.add(userData);
+    }
+
+    // it must be used not here, but in higher layer because here we have polymorphism (not see bank accounts)
+    // higher layer = e.g. ConsoleApp, WindowApp during printing bank accounts data
+    public void deleteUser(UserData userData){
+        savedUsers.remove(userData);
     }
 }
