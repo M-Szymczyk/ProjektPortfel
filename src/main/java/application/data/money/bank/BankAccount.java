@@ -48,6 +48,11 @@ public class BankAccount extends AmountOfMoney{
     }
 
     @Override
+    public void delete() {
+        numbersDataBase.delete(numberBankAccount);
+    }
+
+    @Override
     public String toString() {
         return super.toString() + "\nNumber: " + numberBankAccount.toString() +
                 "\nUserdata: " + accountHolder;

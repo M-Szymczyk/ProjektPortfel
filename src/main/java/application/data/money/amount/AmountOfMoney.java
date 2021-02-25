@@ -10,6 +10,7 @@ public abstract class AmountOfMoney implements AmountOfMoneyInterface, EnterData
 
     public AmountOfMoney() {
         this.money = null;
+        this.name = null;
     }
 
     private void setMoney(BigDecimal money) {
@@ -28,6 +29,11 @@ public abstract class AmountOfMoney implements AmountOfMoneyInterface, EnterData
      * @return name of object
      */
     public abstract String getName();
+
+    /**
+     * Method to clean up memory before deleting object
+     */
+    public abstract void delete();
 
     @Override
     public void deposit(BigDecimal toDeposit){
