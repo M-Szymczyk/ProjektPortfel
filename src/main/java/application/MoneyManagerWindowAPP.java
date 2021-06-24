@@ -1,7 +1,7 @@
 package application;
 
-import application.data.BankAccount;
-import application.data.Wallet;
+import application.data.money.bank.BankAccount;
+import application.data.money.wallet.Wallet;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

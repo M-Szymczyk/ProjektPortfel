@@ -1,4 +1,4 @@
-package application.data;
+package application.services;
 
 import java.math.BigDecimal;
 import java.util.InputMismatchException;
@@ -10,7 +10,6 @@ public interface EnterDataInterface {
      * Metoda enter int zczytuje stringa i rzutuje go na int
      * @return zwraca liczbe int
      */
-
     static int enterInt() {
         boolean isError;
         int enteredInt = 0;
@@ -30,7 +29,6 @@ public interface EnterDataInterface {
      * Metoda enter BigDecimal zczytuje stringa i rzutuje go na BigDecimal
      * @return zwraca liczbe BigDecimal
      */
-
     static BigDecimal enterBigDecimal() {
         boolean isError;
         BigDecimal enteredBigDecimal = new BigDecimal(0);
