@@ -32,7 +32,7 @@ public class MoneyManagerConsoleAPP {
         /* =================== PRZYWITANIE ======================== */
 
         System.out.println("Witaj w programie \"MoneyManager\" !");
-        System.out.println("Kobieta jak kobieta, twór ma różne rządze, zerknij tutaj bo może podpierdala Ci pieniądze...");
+        System.out.println("Kobieta jak kobieta, twór ma różne rządze, zerknij tutaj, może kradnie Ci pieniądze...");
 
         /* ===================== PROGRAM ========================== */
 
