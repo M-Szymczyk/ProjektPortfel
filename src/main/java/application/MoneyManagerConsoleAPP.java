@@ -3,6 +3,7 @@ package application;
 import application.data.money.amount.AmountOfMoney;
 import application.data.money.bank.BankAccount;
 import application.data.money.wallet.Wallet;
+import application.data.user.UserData;
 import application.services.EnterDataInterface;
 
 import java.math.BigDecimal;
@@ -13,16 +14,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MoneyManagerConsoleAPP {
     private final Engine engine = new Engine();
     private static final String MENU =
-            "\nMENU" +
-                    "\n1.Dodaj transakcje" +
-                    "\n2.Przelew między kontami/portfelami (intertransakcja)" +
-                    "\n3.Tworzenie nowego konta" +
-                    "\n4.Tworzenie nowego portfela" +
-                    "\n5.Wyswietlenie stanu konta/portfela" +
-                    "\n6.Wyswietlenie pelnych danych konta/portfela" +
-                    "\n7.Usuwanie konta/portfela" +
-                    "\n8.Koniec programu" +
-                    "\nWybierz opcje: ";
+            """
+
+                    MENU
+                    1.Dodaj transakcje
+                    2.Przelew między kontami/portfelami (intertransakcja)
+                    3.Tworzenie nowego konta
+                    4.Tworzenie nowego portfela
+                    5.Wyswietlenie stanu konta/portfela
+                    6.Wyswietlenie pelnych danych konta/portfela
+                    7.Usuwanie konta/portfela
+                    8.Koniec programu
+                    Wybierz opcje:\s""";
 
     public static void main(String[] args) {
         new MoneyManagerConsoleAPP().work();
@@ -99,7 +102,7 @@ public class MoneyManagerConsoleAPP {
                 case 3:
                     /* ------------------ Tworzenie nowego konta ------------------ */
 
-                    BankAccount bankAccount = new BankAccount();
+                    BankAccount bankAccount = BankAccount.builder().build();
 
                     // @TODO entering data for bank account; remember about Userdata !!!!!!!!
 
@@ -108,7 +111,7 @@ public class MoneyManagerConsoleAPP {
                 case 4:
                     /* ---------------- Tworzenie nowego portfela ----------------- */
 
-                    Wallet wallet = new Wallet();
+                    Wallet wallet = Wallet.builder().build();
 
                     // @TODO entering data for wallets
 

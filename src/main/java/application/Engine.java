@@ -48,7 +48,7 @@ public class Engine implements EnterDataInterface {
     }
 
     public void deleteMoneyStorage(AmountOfMoney moneyStorage){
-        moneyStorage.delete();
+//        moneyStorage.delete();
         moneyStorages.remove(moneyStorage);
     }
 
