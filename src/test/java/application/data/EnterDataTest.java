@@ -1,6 +1,6 @@
 package application.data;
 
-import application.services.EnterDataInterface;
+import application.ui.console.DataEnter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -17,12 +17,12 @@ public class EnterDataTest {
 
         // when
         System.setIn(number);
-        int result = EnterDataInterface.enterInt();
+        int result = DataEnter.enterInt();
         System.setIn(word);
 
         // then
         Assertions.assertEquals(result, 20);
-        Assertions.assertThrows(NoSuchElementException.class, EnterDataInterface::enterInt);
+        Assertions.assertThrows(NoSuchElementException.class, DataEnter::enterInt);
     }
 
     @Test
@@ -33,11 +33,11 @@ public class EnterDataTest {
 
         // when
         System.setIn(number);
-        BigDecimal result = EnterDataInterface.enterBigDecimal();
+        BigDecimal result = DataEnter.enterBigDecimal();
         System.setIn(word);
 
         // then
         Assertions.assertEquals(result, new BigDecimal("123456789.987654321"));
-        Assertions.assertThrows(NoSuchElementException.class, EnterDataInterface::enterBigDecimal);
+        Assertions.assertThrows(NoSuchElementException.class, DataEnter::enterBigDecimal);
     }
 }

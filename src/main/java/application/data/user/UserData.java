@@ -1,12 +1,11 @@
 package application.data.user;
 
-import application.services.EnterDataInterface;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder(setterPrefix = "with")
-public class UserData implements EnterDataInterface {
+public class UserData {
     private String name;
     private String surname;
     private String pesel;

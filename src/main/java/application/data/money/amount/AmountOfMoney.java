@@ -1,6 +1,5 @@
 package application.data.money.amount;
 
-import application.services.EnterDataInterface;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +7,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 
 @Getter
-public abstract class AmountOfMoney implements AmountOfMoneyInterface, EnterDataInterface {
+public abstract class AmountOfMoney implements AmountOfMoneyInterface {
     @Setter(AccessLevel.PRIVATE)
     private BigDecimal money;
     protected String name;

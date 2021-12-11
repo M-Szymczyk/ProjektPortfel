@@ -1,20 +1,18 @@
-package application;
+package application.services;
 
 import application.data.money.amount.AmountOfMoney;
 import application.data.money.amount.AmountOfMoneyInterface;
 import application.data.user.UserData;
-import application.services.EnterDataInterface;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
-public class Engine implements EnterDataInterface {
+@Getter
+public class Engine {
     private final ArrayList<AmountOfMoney> moneyStorages = new ArrayList<>();
-    private final ArrayList<UserData> savedUsers = new ArrayList<>();        // for objects storage only, not to list in view
+    private final ArrayList<UserData> savedUsers = new ArrayList<>();
 
-    // why objects instead of indices?
-    // javafx returns objects from selection in list/table view, not indices, however in console app version it doesn't matter
     public void depositMoney(AmountOfMoneyInterface moneyStorage, BigDecimal money){
         moneyStorage.deposit(money);
     }
@@ -39,16 +37,11 @@ public class Engine implements EnterDataInterface {
         return !moneyStorages.isEmpty();
     }
 
-    public List<AmountOfMoney> getMoneyStorages(){
-        return moneyStorages;
-    }
-
     public void addMoneyStorage(AmountOfMoney moneyStorage){
         moneyStorages.add(moneyStorage);
     }
 
     public void deleteMoneyStorage(AmountOfMoney moneyStorage){
-//        moneyStorage.delete();
         moneyStorages.remove(moneyStorage);
     }
 
@@ -56,18 +49,10 @@ public class Engine implements EnterDataInterface {
         return !savedUsers.isEmpty();
     }
 
-    public List<UserData> getSavedUsers(){
-        return savedUsers;
-    }
-
-    // it must be used not here, but in higher layer because here we have polymorphism (not see bank accounts)
-    // higher layer = e.g. ConsoleApp, WindowApp during entering data to new bank account
-    public void saveUser(UserData userData){
+    public void addUser(UserData userData){
         savedUsers.add(userData);
     }
 
-    // it must be used not here, but in higher layer because here we have polymorphism (not see bank accounts)
-    // higher layer = e.g. ConsoleApp, WindowApp during printing bank accounts data
     public void deleteUser(UserData userData){
         savedUsers.remove(userData);
     }
