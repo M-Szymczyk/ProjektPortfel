@@ -8,7 +8,7 @@ import java.util.Optional;
 public class DataValidator {
     public static String check(String sequence){
         return Optional.ofNullable(sequence)
-                .filter(StringUtils::isBlank)
+                .filter(StringUtils::isNotBlank)
                 .orElseThrow(DataValidator::stringException);
     }
 

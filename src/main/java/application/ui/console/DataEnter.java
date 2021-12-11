@@ -7,8 +7,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class DataEnter {
-    private static final Scanner scanner = new Scanner(System.in);
-
     /**
      * Metoda enter int zczytuje stringa i rzutuje go na int
      * @return zwraca liczbe int
@@ -16,7 +14,7 @@ public class DataEnter {
     public static int enterInt() {
         while (true) {
             try {
-                return scanner.nextInt();
+                return new Scanner(System.in).nextInt();
             } catch(InputMismatchException e){
                 System.err.println("Musisz podac liczbe!");
             }
@@ -30,7 +28,7 @@ public class DataEnter {
     public static BigDecimal enterBigDecimal() {
         while (true) {
             try {
-                return DataValidator.check(scanner.nextBigDecimal());
+                return DataValidator.check(new Scanner(System.in).nextBigDecimal());
             } catch (InputMismatchException e){
                 System.err.println("Musisz podac liczbe!");
             } catch (IllegalArgumentException e) {
@@ -46,7 +44,7 @@ public class DataEnter {
     public static String enterString() {
         while (true) {
             try {
-                return DataValidator.check(scanner.nextLine());
+                return DataValidator.check(new Scanner(System.in).nextLine());
             } catch (InputMismatchException e){
                 System.err.println("Musisz podac słowo!");
             } catch (IllegalArgumentException e) {

@@ -39,9 +39,8 @@ public class MoneyManagerConsoleAPP {
 
         /* ===================== PROGRAM ========================== */
 
-        System.out.println(MENU);
-
         while (true) {
+            System.out.println(MENU);
             int function = DataEnter.enterInt();
             if (function == 1) {    /* ------------------ Dodawanie transakcji ------------------ */
                 if (engine.anyMoneyStorages()) {
@@ -76,7 +75,7 @@ public class MoneyManagerConsoleAPP {
                     engine.interTransaction(source, value, target);
                 }
             } else if (function == 3) {    /* ------------------ Tworzenie nowego konta ------------------ */
-                BankAccount.BankAccountBuilder builder = BankAccount.builder();
+                BankAccount.BankAccountBuilder<?, ?> builder = BankAccount.builder();
 
                 System.out.println("Wprowadź nazwę konta bankowego: ");
                 builder.withName(DataEnter.enterString());
@@ -105,7 +104,7 @@ public class MoneyManagerConsoleAPP {
 
                 engine.addMoneyStorage(builder.build());
             } else if (function == 4) {    /* ---------------- Tworzenie nowego portfela ----------------- */
-                Wallet.WalletBuilder builder = Wallet.builder();
+                Wallet.WalletBuilder<?, ?> builder = Wallet.builder();
 
                 System.out.println("Wprowadź nazwe portfela: ");
                 builder.withName(DataEnter.enterString());

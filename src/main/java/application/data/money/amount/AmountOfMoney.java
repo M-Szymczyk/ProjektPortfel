@@ -1,29 +1,26 @@
 package application.data.money.amount;
 
-import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 
 @Getter
+@SuperBuilder(setterPrefix = "with", toBuilder = true)
 public abstract class AmountOfMoney implements AmountOfMoneyInterface {
-    @Setter(AccessLevel.PRIVATE)
-    private BigDecimal money;
-    protected String name;
-
-    protected AmountOfMoney(String name) {
-        this.name = name;
-    }
+    @Builder.Default
+    private BigDecimal money = new BigDecimal(0);
+    private String name;
 
     @Override
     public void deposit(BigDecimal toDeposit){
-        setMoney(getMoney().add(toDeposit));
+        this.money = getMoney().add(toDeposit);
     }
 
     @Override
     public void withdraw(BigDecimal toWithdraw) {
-        setMoney(getMoney().subtract(toWithdraw));
+        this.money = getMoney().subtract(toWithdraw);
     }
 
     @Override
