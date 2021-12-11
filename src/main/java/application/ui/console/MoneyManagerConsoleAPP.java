@@ -7,7 +7,6 @@ import application.data.money.bank.BankAccount;
 import application.data.money.wallet.Wallet;
 
 import java.math.BigDecimal;
-import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -23,7 +22,8 @@ public class MoneyManagerConsoleAPP {
                             5.Wyswietlenie stanu konta/portfela
                             6.Wyswietlenie pelnych danych konta/portfela
                             7.Usuwanie konta/portfela
-                            8.Koniec programu
+                            8.Usuwanie danych uzytkownika
+                            9.Koniec programu
                             Wybierz opcje:\s
                     """;
 
@@ -91,9 +91,12 @@ public class MoneyManagerConsoleAPP {
                         System.out.println("Ktorego uzytkownika chcesz przypisac do nowego konta?: ");
                         UserData accountHolder = engine.getSavedUsers().get(DataEnter.enterInt() - 1);
                         builder.withAccountHolder(accountHolder);
+                        engine.addUser(accountHolder);
                         break;
                     } else if (userAssignMode == 2) {
-                        builder.withAccountHolder(createUserData());
+                        UserData accountHolder = createUserData();
+                        builder.withAccountHolder(accountHolder);
+                        engine.addUser(accountHolder);
                         break;
                     } else {
                         System.out.println("Brak takiej opcji! Dostępne opcje to 1 lub 2");
@@ -135,7 +138,20 @@ public class MoneyManagerConsoleAPP {
                     AmountOfMoney chosenAccount = engine.getMoneyStorages().get(DataEnter.enterInt() - 1);
                     engine.deleteMoneyStorage(chosenAccount);
                 }
-            } else if (function == 8) {    /* -------------- Zakończenie działania programu -------------- */
+            } else if (function == 8) {    /* ----------------- Usuwanie danych użytkownika ----------------- */
+                if (!engine.anySavedUsers()) {
+                    System.out.println("Nie dodano zadnych danych uzytkownika!");
+                } else {
+                    listSavedUsers();
+                    System.out.println("Ktorego uzytkownika chcialbys sie pozbyc?: ");
+                    UserData chosenUser = engine.getSavedUsers().get(DataEnter.enterInt() - 1);
+                    if (engine.isUserAssignedToAnyBankAccount(chosenUser)) {
+                        System.out.println("Nie mozna usunac uzytkownika! Jest on przypisany do niektórych kont!");
+                    } else {
+                        engine.deleteUser(chosenUser);
+                    }
+                }
+            } else if (function == 9) {    /* -------------- Zakończenie działania programu -------------- */
                 System.out.println("Konczenie dzialania programu!");
                 break;
             } else {

@@ -2,6 +2,7 @@ package application.services;
 
 import application.data.money.amount.AmountOfMoney;
 import application.data.money.amount.AmountOfMoneyInterface;
+import application.data.money.bank.BankAccount;
 import application.data.user.UserData;
 import lombok.Getter;
 
@@ -55,5 +56,12 @@ public class Engine {
 
     public void deleteUser(UserData userData){
         savedUsers.remove(userData);
+    }
+
+    public boolean isUserAssignedToAnyBankAccount(UserData userData) {
+        return moneyStorages.stream()
+                .filter(BankAccount.class::isInstance)
+                .map(BankAccount.class::cast)
+                .anyMatch(bankAccount -> bankAccount.getAccountHolder().equals(userData));
     }
 }
