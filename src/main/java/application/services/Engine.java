@@ -4,10 +4,14 @@ import application.data.money.amount.AmountOfMoney;
 import application.data.money.amount.AmountOfMoneyInterface;
 import application.data.money.bank.BankAccount;
 import application.data.user.UserData;
+import application.services.db.DBController;
+import application.services.db.DataSeparator;
 import lombok.Getter;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 public class Engine {
@@ -63,5 +67,19 @@ public class Engine {
                 .filter(BankAccount.class::isInstance)
                 .map(BankAccount.class::cast)
                 .anyMatch(bankAccount -> bankAccount.getAccountHolder().equals(userData));
+    }
+
+    public void dumpAll() {
+        DBController.dumpDatabaseState(moneyStorages);
+    }
+
+    public void loadAll() throws IOException {
+        List<AmountOfMoney> amountOfMoneyList = DBController.importDataBaseState();
+        moneyStorages.addAll(DataSeparator.getAccounts(amountOfMoneyList));
+        savedUsers.addAll(DataSeparator.getUsers(amountOfMoneyList));
+    }
+
+    public boolean preCheckDatabase() {
+        return DBController.checkDataBaseExistence();
     }
 }

@@ -4,17 +4,19 @@ import application.data.money.amount.AmountOfMoney;
 import application.data.user.UserData;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
+import lombok.extern.jackson.Jacksonized;
 
 import java.math.BigDecimal;
 
 @Getter
+@Jacksonized
 @SuperBuilder(setterPrefix = "with", toBuilder = true)
 public class BankAccount extends AmountOfMoney{
     private final BigDecimal numberBankAccount;
     private final UserData accountHolder;
 
     @Override
-    public String getName() {
+    public String printableName() {
         return "[ACCOUNT] " + super.getName();
     }
 

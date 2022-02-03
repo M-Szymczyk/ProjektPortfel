@@ -13,6 +13,8 @@ public abstract class AmountOfMoney implements AmountOfMoneyInterface {
     private BigDecimal money = new BigDecimal(0);
     private String name;
 
+    public abstract String printableName();
+
     @Override
     public void deposit(BigDecimal toDeposit){
         this.money = getMoney().add(toDeposit);
@@ -25,6 +27,6 @@ public abstract class AmountOfMoney implements AmountOfMoneyInterface {
 
     @Override
     public String toString() {
-        return getName() + "\nMoney = " + money;
+        return printableName() + "\nMoney = " + money;
     }
 }

@@ -1,9 +1,13 @@
 package application.data.user;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.extern.jackson.Jacksonized;
 
+@EqualsAndHashCode
 @Getter
+@Jacksonized
 @Builder(setterPrefix = "with", toBuilder = true)
 public class UserData {
     private String name;

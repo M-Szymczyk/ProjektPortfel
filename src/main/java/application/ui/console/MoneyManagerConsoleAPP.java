@@ -6,6 +6,7 @@ import application.data.money.amount.AmountOfMoney;
 import application.data.money.bank.BankAccount;
 import application.data.money.wallet.Wallet;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -38,6 +39,33 @@ public class MoneyManagerConsoleAPP {
         System.out.println("Kobieta jak kobieta, twór ma różne rządze, zerknij tutaj, może kradnie Ci pieniądze...");
 
         /* ===================== PROGRAM ========================== */
+
+        /* ------------------ Opcjonalne ładowanie zrzuconej bazy danych ------------------ */
+
+        if(engine.preCheckDatabase()){
+            while (true) {
+                System.out.println("Wykryto zrzut bazy danych. Czy zaladowac go? [1.Tak/2.Nie]");
+                int choice = DataEnter.enterInt();
+                if (choice == 1) {
+                    try{
+                        engine.loadAll();
+                        System.out.println("Pomyslnie zaladowano poprzedni zrzut!");
+                        break;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        System.out.println("Nastąpił błąd! Wychodze z programu!");
+                        System.exit(-1);
+                    }
+                }
+                else if (choice == 2) {
+                    System.out.println("Przechodze do dalszej czesci programu, bez ladowania bazy!");
+                    break;
+                }
+                else {
+                    System.out.println("Brak takiej opcji! Dostępne opcje to 1 lub 2");
+                }
+            }
+        }
 
         while (true) {
             System.out.println(MENU);
@@ -117,7 +145,7 @@ public class MoneyManagerConsoleAPP {
                     listMoneyStorages();
                     System.out.println("Ktorego konta/portfela stan wyswietlic?: ");
                     AmountOfMoney chosenAccount = engine.getMoneyStorages().get(DataEnter.enterInt() - 1);
-                    System.out.println("Stan " + chosenAccount.getName() + " wynosi " + chosenAccount.getMoney());
+                    System.out.println("Stan " + chosenAccount.printableName() + " wynosi " + chosenAccount.getMoney());
                 }
             } else if (function == 6) {    /* ----------------- Wyświetlenie danych konta/portfela ----------------- */
                 if (!engine.anyMoneyStorages()) {
@@ -152,6 +180,7 @@ public class MoneyManagerConsoleAPP {
                 }
             } else if (function == 9) {    /* -------------- Zakończenie działania programu -------------- */
                 System.out.println("Konczenie dzialania programu!");
+                engine.dumpAll();
                 break;
             } else {
                 System.out.println("Nie ma takiej opcji!");
@@ -167,7 +196,7 @@ public class MoneyManagerConsoleAPP {
             System.out.println("Nie masz zadnych kont bankowych ani portfeli!");
         } else {
             AtomicInteger i = new AtomicInteger(1);
-            engine.getMoneyStorages().forEach(moneyStorage -> System.out.println(i.getAndIncrement() + ". " + moneyStorage.getName()));
+            engine.getMoneyStorages().forEach(moneyStorage -> System.out.println(i.getAndIncrement() + ". " + moneyStorage.printableName()));
         }
     }
 
@@ -179,7 +208,7 @@ public class MoneyManagerConsoleAPP {
         if (!engine.anySavedUsers()) {
             System.out.println("Nie ma żadnych zapisanych użytkowników z kont bankowych!");
         } else {
-            AtomicInteger i = new AtomicInteger();
+            AtomicInteger i = new AtomicInteger(1);
             engine.getSavedUsers().forEach(user -> System.out.println(i.getAndIncrement()
                     + ". " + user.getName() + " " + user.getSurname() + " " + user.getPesel()));
         }
@@ -216,21 +245,21 @@ public class MoneyManagerConsoleAPP {
         System.out.println("Wprowadz nazwisko: ");
         userDataBuilder.withSurname(DataEnter.enterString());
         System.out.println("Wprowadz PESEL: ");
-        userDataBuilder.withName(DataEnter.enterString());
+        userDataBuilder.withPesel(DataEnter.enterString());
         System.out.println("Wprowadz numer dowodu: ");
-        userDataBuilder.withSurname(DataEnter.enterString());
+        userDataBuilder.withIdNo(DataEnter.enterString());
         System.out.println("Wprowadz miasto zamieszkania: ");
-        userDataBuilder.withName(DataEnter.enterString());
+        userDataBuilder.withResidentialCity(DataEnter.enterString());
         System.out.println("Wprowadz ulice zamieszKania: ");
-        userDataBuilder.withSurname(DataEnter.enterString());
+        userDataBuilder.withResidentialStreet(DataEnter.enterString());
         System.out.println("Wprowadz numer budynku: ");
-        userDataBuilder.withName(DataEnter.enterString());
+        userDataBuilder.withHouseNo(DataEnter.enterString());
         System.out.println("Wprowadz numer mieszkania: ");
-        userDataBuilder.withSurname(DataEnter.enterString());
+        userDataBuilder.withFlatNo(DataEnter.enterString());
         System.out.println("Wprowadz kod pocztowy: ");
-        userDataBuilder.withName(DataEnter.enterString());
+        userDataBuilder.withPostCode(DataEnter.enterString());
         System.out.println("Wprowadz poczte: ");
-        userDataBuilder.withSurname(DataEnter.enterString());
+        userDataBuilder.withPost(DataEnter.enterString());
 
         return userDataBuilder.build();
     }
