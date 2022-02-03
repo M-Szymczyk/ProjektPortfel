@@ -1,9 +1,6 @@
 package application.services.db;
 
 import application.data.money.amount.AmountOfMoney;
-import application.data.money.amount.AmountOfMoneyInterface;
-import application.data.user.UserData;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
@@ -16,9 +13,6 @@ import java.util.List;
 
 public class DBController {
     private static final ObjectMapper objectMapper = new ObjectMapper();
-    private static List<AmountOfMoney> accounts;
-
-    // @TODO indices assignment, reading from file
 
     public static void dumpDatabaseState(List<AmountOfMoney> accounts) {
         try{
