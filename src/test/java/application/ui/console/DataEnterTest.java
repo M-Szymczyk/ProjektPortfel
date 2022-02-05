@@ -1,6 +1,5 @@
-package application.data;
+package application.ui.console;
 
-import application.ui.console.DataEnter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +7,7 @@ import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
 import java.util.NoSuchElementException;
 
-public class EnterDataTest {
+public class DataEnterTest {
     @Test
     public void enterIntTest(){
         // given
