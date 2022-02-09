@@ -1,4 +1,4 @@
-package application;
+package application.ui.window;
 
 import application.data.money.bank.BankAccount;
 import application.data.money.wallet.Wallet;
