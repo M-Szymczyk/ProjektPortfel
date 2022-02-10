@@ -10,16 +10,7 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @Builder(setterPrefix = "with", toBuilder = true)
 public class UserData {
-    private String name;
-    private String surname;
-    private String pesel;
-    private String idNo;               // nr dowodu
-    private String residentialCity;    // miasto zamieszkania
-    private String residentialStreet;
-    private String houseNo;
-    private String flatNo;
-    private String postCode;
-    private String post;
+    private String name, surname, pesel, idNo, residentialCity, residentialStreet, houseNo, flatNo, postCode, post;
 
     @Override
     public String toString() {
