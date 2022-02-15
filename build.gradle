@@ -32,4 +32,4 @@ run{
     standardInput = System.in
 }
 
-mainClassName = 'application.Engine'
+mainClassName = 'application.ui.window.MoneyManagerWindowAPP'
