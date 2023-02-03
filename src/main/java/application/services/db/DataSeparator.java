@@ -7,6 +7,7 @@ import application.data.user.UserData;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class DataSeparator {
     public static List<AmountOfMoney> getAccounts(List<AmountOfMoney> amountOfMoneyList) {
@@ -21,6 +22,6 @@ public class DataSeparator {
                 .map(BankAccount.class::cast)
                 .map(BankAccount::getAccountHolder)
                 .distinct()
-                .toList();
+                .collect(Collectors.toList());
     }
 }

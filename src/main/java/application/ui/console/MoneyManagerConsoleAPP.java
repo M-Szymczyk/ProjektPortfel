@@ -73,13 +73,17 @@ public class MoneyManagerConsoleAPP {
             if (function == 1) {    /* ------------------ Dodawanie transakcji ------------------ */
                 if (engine.anyMoneyStorages()) {
                     while (true) {
-                        System.out.println("1.Wplata czy 2.wyplata gotowki?[1/2]: ");
+                        System.out.println("1.Wplata czy 2.wyplata gotowki?[1/2/3.Wyjdz]: ");
                         int transactionTypeChoice = DataEnter.enterInt();
                         if (transactionTypeChoice == 1 || transactionTypeChoice == 2) {
                             transaction(transactionTypeChoice);
                             break;
-                        } else {
-                            System.out.println("Brak takiej opcji! Dostępne opcje to 1 lub 2");
+                        }
+                        else if (transactionTypeChoice == 3) {
+                            break;
+                        }
+                        else {
+                            System.out.println("Brak takiej opcji! Dostępne opcje to 1, 2 lub 3");
                         }
                     }
                 } else {
