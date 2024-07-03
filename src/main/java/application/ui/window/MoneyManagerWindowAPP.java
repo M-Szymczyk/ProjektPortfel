@@ -11,7 +11,7 @@ public class MoneyManagerWindowAPP extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         StackPane stackPane = new StackPane();
 
         primaryStage.setTitle("Money Manager");
