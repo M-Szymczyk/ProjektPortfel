@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox minHeight="200" minWidth="400" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+    <fx:include source="AccountData.fxml" />
+    <Separator prefWidth="200.0" />
+    <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+        <opaqueInsets>
+            <Insets bottom="15.0" left="15.0" right="15.0" />
+        </opaqueInsets>
+        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Dodaj" />
+        <Button mnemonicParsing="false" text="Anuluj" />
+      <padding>
+         <Insets right="15.0" />
+      </padding>
+    </HBox>
+</VBox>
