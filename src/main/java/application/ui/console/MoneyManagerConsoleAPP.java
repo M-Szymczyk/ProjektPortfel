@@ -73,12 +73,16 @@ public class MoneyManagerConsoleAPP {
             if (function == 1) {    /* ------------------ Dodawanie transakcji ------------------ */
                 if (engine.anyMoneyStorages()) {
                     while (true) {
-                        System.out.println("1.Wplata czy 2.wyplata gotowki?[1/2]: ");
+                        System.out.println("1.Wplata czy 2.wyplata gotowki?[1/2/3.Wyjscie]: ");
                         int transactionTypeChoice = DataEnter.enterInt();
                         if (transactionTypeChoice == 1 || transactionTypeChoice == 2) {
                             transaction(transactionTypeChoice);
                             break;
-                        } else {
+                        } else if (transactionTypeChoice == 3) {
+                            System.out.println("Wybrales wyjscie!");
+                            break;
+                        }
+                        else {
                             System.out.println("Brak takiej opcji! Dostępne opcje to 1 lub 2");
                         }
                     }
@@ -93,8 +97,13 @@ public class MoneyManagerConsoleAPP {
                 } else {
                     listMoneyStorages();
 
-                    System.out.println("Z ktorego konta/portfela chcialbys przelac hajs?: ");
-                    AmountOfMoney source = engine.getMoneyStorages().get(DataEnter.enterInt() - 1);
+                    System.out.println("Z ktorego konta/portfela chcialbys przelac hajs?[-1.Wyjscie]: ");
+                    int index = DataEnter.enterInt();
+                    if (index == -1) {
+                        System.out.println("Wybrales wyjscie!");
+                        continue;
+                    }
+                    AmountOfMoney source = engine.getMoneyStorages().get(index - 1);
                     System.out.println("Na ktore konto/portfel chcialbys przelac hajs?: ");
                     AmountOfMoney target = engine.getMoneyStorages().get(DataEnter.enterInt() - 1);
                     System.out.println("Podaj kwote jaka chcesz przelac: ");
@@ -105,8 +114,13 @@ public class MoneyManagerConsoleAPP {
             } else if (function == 3) {    /* ------------------ Tworzenie nowego konta ------------------ */
                 BankAccount.BankAccountBuilder<?, ?> builder = BankAccount.builder();
 
-                System.out.println("Wprowadź nazwę konta bankowego: ");
-                builder.withName(DataEnter.enterString());
+                System.out.println("Wprowadź nazwę konta bankowego[-1.Wyjscie]: ");
+                String input = DataEnter.enterString();
+                if (input.equals("-1")) {
+                    System.out.println("Wybrales wyjscie!");
+                    continue;
+                }
+                builder.withName(input);
                 System.out.println("Wprowadź numer konta bankowego: ");
                 builder.withNumberBankAccount(DataEnter.enterBigDecimal());
 
@@ -134,8 +148,13 @@ public class MoneyManagerConsoleAPP {
             } else if (function == 4) {    /* ---------------- Tworzenie nowego portfela ----------------- */
                 Wallet.WalletBuilder<?, ?> builder = Wallet.builder();
 
-                System.out.println("Wprowadź nazwe portfela: ");
-                builder.withName(DataEnter.enterString());
+                System.out.println("Wprowadź nazwe portfela[-1.Wyjscie]: ");
+                String input = DataEnter.enterString();
+                if (input.equals("-1")) {
+                    System.out.println("Wybrales wyjscie!");
+                    continue;
+                }
+                builder.withName(input);
 
                 engine.addMoneyStorage(builder.build());
             } else if (function == 5) {    /* ----------------- Wyświetlenie stanu konta/portfela ----------------- */
@@ -143,8 +162,13 @@ public class MoneyManagerConsoleAPP {
                     System.out.println("Nie dodano zadnych kont bankowych ani portfeli!");
                 } else {
                     listMoneyStorages();
-                    System.out.println("Ktorego konta/portfela stan wyswietlic?: ");
-                    AmountOfMoney chosenAccount = engine.getMoneyStorages().get(DataEnter.enterInt() - 1);
+                    System.out.println("Ktorego konta/portfela stan wyswietlic?[-1.Wyjscie]: ");
+                    int index = DataEnter.enterInt();
+                    if (index == -1) {
+                        System.out.println("Wybrales wyjscie!");
+                        continue;
+                    }
+                    AmountOfMoney chosenAccount = engine.getMoneyStorages().get(index - 1);
                     System.out.println("Stan " + chosenAccount.printableName() + " wynosi " + chosenAccount.getMoney());
                 }
             } else if (function == 6) {    /* ----------------- Wyświetlenie danych konta/portfela ----------------- */
@@ -152,8 +176,13 @@ public class MoneyManagerConsoleAPP {
                     System.out.println("Nie dodano zadnych kont bankowych ani portfeli!");
                 } else {
                     listMoneyStorages();
-                    System.out.println("Ktorego konta/portfela dane wyswietlic?: ");
-                    AmountOfMoney chosenAccount = engine.getMoneyStorages().get(DataEnter.enterInt() - 1);
+                    System.out.println("Ktorego konta/portfela dane wyswietlic?[-1.Wyjscie]: ");
+                    int index = DataEnter.enterInt();
+                    if (index == -1) {
+                        System.out.println("Wybrales wyjscie!");
+                        continue;
+                    }
+                    AmountOfMoney chosenAccount = engine.getMoneyStorages().get(index - 1);
                     System.out.println(chosenAccount.toString());
                 }
             } else if (function == 7) {    /* ----------------- Usuwanie konta/portfela ----------------- */
@@ -161,8 +190,13 @@ public class MoneyManagerConsoleAPP {
                     System.out.println("Nie dodano zadnych kont bankowych ani portfeli!");
                 } else {
                     listMoneyStorages();
-                    System.out.println("Ktorego konta/portfela chcialbys sie pozbyc?: ");
-                    AmountOfMoney chosenAccount = engine.getMoneyStorages().get(DataEnter.enterInt() - 1);
+                    System.out.println("Ktorego konta/portfela chcialbys sie pozbyc?[-1.Wyjscie]: ");
+                    int index = DataEnter.enterInt();
+                    if (index == -1) {
+                        System.out.println("Wybrales wyjscie!");
+                        continue;
+                    }
+                    AmountOfMoney chosenAccount = engine.getMoneyStorages().get(index - 1);
                     engine.deleteMoneyStorage(chosenAccount);
                 }
             } else if (function == 8) {    /* ----------------- Usuwanie danych użytkownika ----------------- */
@@ -170,8 +204,13 @@ public class MoneyManagerConsoleAPP {
                     System.out.println("Nie dodano zadnych danych uzytkownika!");
                 } else {
                     listSavedUsers();
-                    System.out.println("Ktorego uzytkownika chcialbys sie pozbyc?: ");
-                    UserData chosenUser = engine.getSavedUsers().get(DataEnter.enterInt() - 1);
+                    System.out.println("Ktorego uzytkownika chcialbys sie pozbyc?[-1.Wyjscie]: ");
+                    int index = DataEnter.enterInt();
+                    if (index == -1) {
+                        System.out.println("Wybrales wyjscie!");
+                        continue;
+                    }
+                    UserData chosenUser = engine.getSavedUsers().get(index - 1);
                     if (engine.isUserAssignedToAnyBankAccount(chosenUser)) {
                         System.out.println("Nie mozna usunac uzytkownika! Jest on przypisany do niektórych kont!");
                     } else {
